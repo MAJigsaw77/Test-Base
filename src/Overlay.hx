@@ -2,7 +2,6 @@ package;
 
 import haxe.Timer;
 import memory.Memory;
-import openfl.Lib;
 import openfl.events.Event;
 import openfl.system.System;
 import openfl.text.TextField;
@@ -43,14 +42,13 @@ class Overlay extends TextField
 				textColor = 0xFFFFFFFF;
 
 			if (visible)
-				text = currentFrames + ' FPS\n' + getInterval(Memory.getCurrentUsage()) + ' / ' + getInterval(Memory.getPeakUsage()) + '\n';
+				text = currentFrames + ' FPS\n' + getInterval(Std.parseFloat(Memory.getCurrentUsage())) + ' / ' + getInterval(Std.parseFloat(Memory.getPeakUsage())) + '\n';
 		});
 	}
 
-	private function getInterval(sizeInt:Int):String
+	private function getInterval(size:Float):String
 	{
 		var data:Int = 0;
-		var size:Float = Std.parseFloat(Std.string(sizeInt)); // weird way to convert int to float
 
 		final intervalArray:Array<String> = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
 		while (size > 1024 && data < intervalArray.length - 1)
@@ -60,6 +58,6 @@ class Overlay extends TextField
 		}
 
 		size = Math.round(size * 100) / 100;
-		return Std.string(size) + ' ' + intervalArray[data];
+		return size + ' ' + intervalArray[data];
 	}
 }
