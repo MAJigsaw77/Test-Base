@@ -34,15 +34,15 @@ class Memory
 	")
 	#elseif mac
 	@:functionCode("
-		struct rusage rusage;
-		getrusage(RUSAGE_SELF, &rusage);
-		return (size_t)rusage.ru_maxrss;
+		struct rusage daUsage;
+		getrusage(RUSAGE_SELF, &daUsage);
+		return (size_t)daUsage.ru_maxrss;
 	")
 	#elseif (linux || android)
 	@:functionCode("
-		struct rusage rusage;
-		getrusage(RUSAGE_SELF, &rusage);
-		return (size_t)(rusage.ru_maxrss * 1024L);
+		struct rusage daUsage;
+		getrusage(RUSAGE_SELF, &daUsage);
+		return (size_t)(daUsage.ru_maxrss * 1024L);
 	")
 	#end
 	public static function getPeakUsage():Dynamic
