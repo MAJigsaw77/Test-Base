@@ -40,7 +40,7 @@ class Memory
 	@:functionCode("
 		struct rusage usage;
 		getrusage(RUSAGE_SELF, &usage);
-		return (size_t)daUsage.ru_maxrss;
+		return (size_t)usage.ru_maxrss;
 	")
 	#elseif (linux || android)
 	@:functionCode("
