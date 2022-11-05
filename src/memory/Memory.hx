@@ -38,15 +38,15 @@ class Memory
 	")
 	#elseif mac
 	@:functionCode("
-		struct rusage daUsage;
-		getrusage(RUSAGE_SELF, &daUsage);
+		struct rusage usage;
+		getrusage(RUSAGE_SELF, &usage);
 		return (size_t)daUsage.ru_maxrss;
 	")
 	#elseif (linux || android)
 	@:functionCode("
-		struct rusage daUsage;
-		getrusage(RUSAGE_SELF, &daUsage);
-		return (size_t)(daUsage.ru_maxrss * 1024L);
+		struct rusage usage;
+		getrusage(RUSAGE_SELF, &usage);
+		return (size_t)(usage.ru_maxrss * 1024L);
 	")
 	#end
 	public static function getPeakUsage():Dynamic
@@ -78,11 +78,13 @@ class Memory
 
 		if ((fp = fopen("/proc/self/statm", "r")) == NULL)
 			return (size_t)0L;
+
 		if (fscanf(fp, "%*s%ld", &rss) != 1)
 		{
 			fclose(fp);
 			return (size_t)0L;
 		}
+
 		fclose(fp);
 		return (size_t)rss * (size_t)sysconf( _SC_PAGESIZE);
 	')
