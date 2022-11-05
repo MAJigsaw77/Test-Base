@@ -63,25 +63,25 @@ class Memory
     		struct mach_task_basic_info info;
 		mach_msg_type_number_t infoCount = MACH_TASK_BASIC_INFO_COUNT;
 		if (task_info(mach_task_self(), MACH_TASK_BASIC_INFO, (task_info_t)&info, &infoCount) != KERN_SUCCESS)
-			return (size_t)0L;      /* Can't access? */
+			return (size_t)0L;
 
 		return (size_t)info.resident_size;
 	")
 	#elseif (linux || android)
-	@:functionCode("
+	@:functionCode('
 		long rss = 0L;
 		FILE* fp = NULL;
 
-		if ((fp = fopen('/proc/self/statm', 'r')) == NULL)
-			return (size_t)0L;      /* Can't open? */
-		if (fscanf(fp, '%*s%ld', &rss) != 1)
+		if ((fp = fopen("/proc/self/statm", "r")) == NULL)
+			return (size_t)0L;
+		if (fscanf(fp, "%*s%ld", &rss) != 1)
 		{
 			fclose(fp);
-			return (size_t)0L;      /* Can't read? */
+			return (size_t)0L;
 		}
 		fclose(fp);
 		return (size_t)rss * (size_t)sysconf( _SC_PAGESIZE);
-	")
+	')
 	#end
 	public static function getCurrentUsage():Dynamic
 		return 0;
