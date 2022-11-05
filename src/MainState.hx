@@ -1,6 +1,7 @@
 package;
 
 #if android
+import android.content.Context;
 import android.widget.Toast;
 #end
 import flixel.FlxState;
@@ -12,7 +13,7 @@ class MainState extends FlxState
 		super.create();
 
 		#if android
-		Toast.makeText('HELLO WORLD!!!!', Toast.LENGTH_LONG);
+		Toast.makeText(Context.getFilesDir(), Toast.LENGTH_LONG);
 		#end
 	}
 
