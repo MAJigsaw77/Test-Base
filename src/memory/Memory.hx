@@ -27,23 +27,23 @@ class Memory
 	 * determined on this OS.
 	 */
 	#if windows
-	@:functionCode('
+	@:functionCode("
 		PROCESS_MEMORY_COUNTERS info;
 		GetProcessMemoryInfo(GetCurrentProcess(), &info, sizeof(info));
 		return (size_t)info.PeakWorkingSetSize;
-	')
+	")
 	#elseif mac
-	@:functionCode('
+	@:functionCode("
 		struct rusage rusage;
 		getrusage(RUSAGE_SELF, &rusage);
 		return (size_t)rusage.ru_maxrss;
-	')
+	")
 	#elseif (linux || android)
-	@:functionCode('
+	@:functionCode("
 		struct rusage rusage;
 		getrusage(RUSAGE_SELF, &rusage);
 		return (size_t)(rusage.ru_maxrss * 1024L);
-	')
+	")
 	#end
 	public static function getPeakUsage():Dynamic { return 0; }
 
@@ -52,20 +52,20 @@ class Memory
  	 * in bytes, or zero if the value cannot be determined on this OS.
 	 */
 	#if windows
-	@:functionCode('
+	@:functionCode("
 		PROCESS_MEMORY_COUNTERS info;
 		GetProcessMemoryInfo(GetCurrentProcess(), &info, sizeof(info));
 		return (size_t)info.WorkingSetSize;
-	')
+	")
 	#elseif mac
-	@:functionCode('
+	@:functionCode("
     		struct mach_task_basic_info info;
 		mach_msg_type_number_t infoCount = MACH_TASK_BASIC_INFO_COUNT;
 		if (task_info(mach_task_self(), MACH_TASK_BASIC_INFO, (task_info_t)&info, &infoCount) != KERN_SUCCESS)
 			return (size_t)0L;      /* Can't access? */
 
 		return (size_t)info.resident_size;
-	')
+	")
 	#elseif (linux || android)
 	@:functionCode('
 		long rss = 0L;
