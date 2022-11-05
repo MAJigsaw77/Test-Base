@@ -31,8 +31,8 @@ class Overlay extends TextField
 				times.shift();
 
 			var currentFrames:Int = times.length;
-			if (currentFrames > PreferencesData.framerate)
-				currentFrames = PreferencesData.framerate;
+			if (currentFrames > Lib.current.stage.frameRate)
+				currentFrames = Lib.current.stage.frameRate;
 
 			if (currentFrames <= Lib.current.stage.frameRate / 4)
 				textColor = 0xFFFF0000;
