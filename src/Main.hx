@@ -14,8 +14,9 @@ class Main extends Sprite
 		SUtil.checkPermissions();
 
 		final zoom:Float = Math.min(Lib.current.stage.stageWidth / Lib.application.window.width, Lib.current.stage.stageHeight / Lib.application.window.height);
+		final frameRate:Int = Std.int(Lib.current.stage.frameRate);
 
-		addChild(new FlxGame(Math.ceil(Lib.current.stage.stageWidth / zoom), Math.ceil(Lib.current.stage.stageHeight / zoom), MainState, zoom, Std.int(Lib.current.stage.frameRate), Std.int(Lib.current.stage.frameRate), false, false));
+		addChild(new FlxGame(Math.ceil(Lib.current.stage.stageWidth / zoom), Math.ceil(Lib.current.stage.stageHeight / zoom), MainState, zoom, frameRate, frameRate, false, false));
 		addChild(new Overlay(10, 10, 0xFFFFFF));
 	}
 }
