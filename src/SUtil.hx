@@ -56,50 +56,7 @@ class SUtil
 		if (Permissions.getGrantedPermissions().contains(Permissions.WRITE_EXTERNAL_STORAGE)
 			&& Permissions.getGrantedPermissions().contains(Permissions.READ_EXTERNAL_STORAGE))
 		{
-			if (!FileSystem.exists(SUtil.getStorageDirectory() + 'assets') && !FileSystem.exists(SUtil.getStorageDirectory() + 'mods'))
-			{
-				Lib.application.window.alert("Whoops, seems like you didn't extract the files from the .APK!\nPlease watch the tutorial by pressing OK.",
-					'Error!');
-				LimeSystem.openURL('https://youtu.be/zjvkTmdWvfU');
-				LimeSystem.exit(1);
-			}
-			else if ((FileSystem.exists(SUtil.getStorageDirectory() + 'assets') && !FileSystem.isDirectory(SUtil.getStorageDirectory() + 'assets'))
-				&& (FileSystem.exists(SUtil.getStorageDirectory() + 'mods') && !FileSystem.isDirectory(SUtil.getStorageDirectory() + 'mods')))
-			{
-				Lib.application.window.alert("Why did you create two files called assets and mods instead of copying the folders from the .APK?, expect a crash.",
-					'Error!');
-				LimeSystem.exit(1);
-			}
-			else
-			{
-				if (!FileSystem.exists(SUtil.getStorageDirectory() + 'assets'))
-				{
-					Lib.application.window.alert("Whoops, seems like you didn't extract the assets/assets folder from the .APK!\nPlease watch the tutorial by pressing OK.",
-						'Error!');
-					LimeSystem.openURL('https://youtu.be/zjvkTmdWvfU');
-					LimeSystem.exit(1);
-				}
-				else if (FileSystem.exists(SUtil.getStorageDirectory() + 'assets') && !FileSystem.isDirectory(SUtil.getStorageDirectory() + 'assets'))
-				{
-					Lib.application.window.alert("Why did you create a file called assets instead of copying the assets directory from the .APK?, expect a crash.",
-						'Error!');
-					LimeSystem.exit(1);
-				}
-
-				if (!FileSystem.exists(SUtil.getStorageDirectory() + 'mods'))
-				{
-					Lib.application.window.alert("Whoops, seems like you didn't extract the assets/mods folder from the .APK!\nPlease watch the tutorial by pressing OK.",
-						'Error!');
-					LimeSystem.openURL('https://youtu.be/zjvkTmdWvfU');
-					LimeSystem.exit(1);
-				}
-				else if (FileSystem.exists(SUtil.getStorageDirectory() + 'mods') && !FileSystem.isDirectory(SUtil.getStorageDirectory() + 'mods'))
-				{
-					Lib.application.window.alert("Why did you create a file called mods instead of copying the mods directory from the .APK?, expect a crash.",
-						'Error!');
-					LimeSystem.exit(1);
-				}
-			}
+			// Nothing for now xd
 		}
 		#end
 	}
