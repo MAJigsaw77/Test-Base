@@ -47,10 +47,10 @@ class Overlay extends TextField
 		});
 	}
 
-	private function getInterval(size:Int):String
+	private function getInterval(sizeInt:Int):String
 	{
 		var data:Int = 0;
-		size = Std.parseFloat(Std.string(size)); // weird way to convert int to float
+		var size:Float = Std.parseFloat(Std.string(sizeInt)); // weird way to convert int to float
 
 		final intervalArray:Array<String> = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
 		while (size > 1024 && data < intervalArray.length - 1)
