@@ -18,9 +18,9 @@ package memory;
 ") 
 #elseif (linux || android)
 @:headerCode("
-#include <stdio.h>
-#include <sys/resource.h>
 #include <unistd.h>
+#include <sys/resource.h>
+#include <stdio.h>
 ")
 #end
 class Memory
