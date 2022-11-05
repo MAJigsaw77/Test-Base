@@ -20,6 +20,7 @@ package memory;
 @:headerCode("
 #include <stdio.h>
 #include <sys/resource.h>
+#include <unistd.h>
 ")
 #end
 class Memory
