@@ -10,7 +10,9 @@ package memory;
 		<compilervalue name="-I" value="${this_dir}/include/" />
 	</files>
 ')
-@:include("memory.h")
+@:headerCode('
+#include <memory.h>
+')
 extern class Memory
 {
 	/**
