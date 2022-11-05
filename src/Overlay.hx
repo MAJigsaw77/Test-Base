@@ -2,6 +2,7 @@ package;
 
 import haxe.Timer;
 import memory.Memory;
+import openfl.Lib;
 import openfl.events.Event;
 import openfl.system.System;
 import openfl.text.TextField;
@@ -33,9 +34,9 @@ class Overlay extends TextField
 			if (currentFrames > PreferencesData.framerate)
 				currentFrames = PreferencesData.framerate;
 
-			if (currentFrames <= PreferencesData.framerate / 4)
+			if (currentFrames <= Lib.current.stage.frameRate / 4)
 				textColor = 0xFFFF0000;
-			else if (currentFrames <= PreferencesData.framerate / 2)
+			else if (currentFrames <= Lib.current.stage.frameRate / 2)
 				textColor = 0xFFFFFF00;
 			else
 				textColor = 0xFFFFFFFF;
