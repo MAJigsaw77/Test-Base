@@ -36,17 +36,11 @@ class Memory
 		GetProcessMemoryInfo(GetCurrentProcess(), &info, sizeof(info));
 		return (size_t)info.PeakWorkingSetSize;
 	")
-	#elseif mac
+	#elseif (mac || linux || android) 
 	@:functionCode("
 		struct rusage usage;
 		getrusage(RUSAGE_SELF, &usage);
 		return (size_t)usage.ru_maxrss;
-	")
-	#elseif (linux || android)
-	@:functionCode("
-		struct rusage usage;
-		getrusage(RUSAGE_SELF, &usage);
-		return (size_t)(usage.ru_maxrss * 1024L);
 	")
 	#end
 	public static function getPeakUsage():Dynamic
