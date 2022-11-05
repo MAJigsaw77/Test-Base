@@ -56,7 +56,7 @@ class Overlay extends TextField
 		while (size > 1024 && data < intervalArray.length - 1)
 		{
 			data++;
-			size = size * 1.0 / 1024;
+			size = size / 1024;
 		}
 
 		size = Math.round(size * 100) / 100;
