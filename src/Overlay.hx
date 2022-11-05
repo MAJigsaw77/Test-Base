@@ -50,12 +50,13 @@ class Overlay extends TextField
 	private function getInterval(size:Int):String
 	{
 		var data:Int = 0;
+		size = size * 1.0; // weird way to convert int to float
 
 		final intervalArray:Array<String> = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
 		while (size > 1024 && data < intervalArray.length - 1)
 		{
 			data++;
-			size = size / 1024;
+			size = size * 1.0 / 1024;
 		}
 
 		size = Math.round(size * 100) / 100;
