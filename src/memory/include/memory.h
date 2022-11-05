@@ -20,7 +20,7 @@
 #include <fcntl.h>
 #include <procfs.h>
 
-#elif defined(__linux__) || defined(__linux) || defined(linux) || defined(__gnu_linux__)
+#elif defined(__linux__) || defined(__linux) || defined(linux) || defined(__gnu_linux__) || defined(__aarch64__) || defined(__arm__)
 #include <stdio.h>
 
 #endif
@@ -93,7 +93,7 @@ size_t getCurrentRSS( )
         return (size_t)0L;      /* Can't access? */
     return (size_t)info.resident_size;
 
-#elif defined(__linux__) || defined(__linux) || defined(linux) || defined(__gnu_linux__)
+#elif defined(__linux__) || defined(__linux) || defined(linux) || defined(__gnu_linux__) || defined(__aarch64__) || defined(__arm__)
     /* Linux ---------------------------------------------------- */
     long rss = 0L;
     FILE* fp = NULL;
