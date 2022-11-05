@@ -10,9 +10,7 @@ package memory;
 		<compilervalue name="-I" value="${this_dir}/include/" />
 	</files>
 ')
-@:headerCode('
-#include <memory.h>
-')
+@:include("memory.h")
 extern class Memory
 {
 	/**
@@ -20,13 +18,17 @@ extern class Memory
 	 * memory use) measured in bytes, or zero if the value cannot be
 	 * determined on this OS.
 	 */
-	@:native("getPeakRSS")
-	public static function getPeakUsage():Int;
+	@:functionCode('
+		return getPeakRSS();
+	')
+	public static function getPeakUsage():Int { return 0; }
 
 	/**
  	 * Returns the current resident set size (physical memory use) measured
  	 * in bytes, or zero if the value cannot be determined on this OS.
 	 */
-	@:native("getCurrentRSS")
-	public static function getCurrentUsage():Int;
+	@:functionCode('
+		return getCurrentRSS();
+	')
+	public static function getCurrentUsage():Int { return 0; }
 }
