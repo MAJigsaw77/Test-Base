@@ -13,10 +13,12 @@ class Main extends Sprite
 		SUtil.uncaughtErrorHandler();
 		SUtil.checkPermissions();
 
+		final width:Int = Math.ceil(Lib.current.stage.stageWidth / zoom);
+		final height:Int = Math.ceil(Lib.current.stage.stageHeight / zoom);
 		final zoom:Float = Math.min(Lib.current.stage.stageWidth / Lib.application.window.width, Lib.current.stage.stageHeight / Lib.application.window.height);
-		final frameRate:Int = Std.int(Lib.current.stage.frameRate);
+		final framerate:Int = Std.int(Lib.current.stage.frameRate);
 
-		addChild(new FlxGame(Math.ceil(Lib.current.stage.stageWidth / zoom), Math.ceil(Lib.current.stage.stageHeight / zoom), MainState, zoom, frameRate, frameRate, false, false));
+		addChild(new FlxGame(width, height, MainState, zoom, framerate, framerate, false, false));
 		addChild(new Overlay(10, 10, 0xFFFFFF));
 	}
 }
