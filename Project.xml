@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://lime.software/project/1.0.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://lime.software/xsd/project-1.0.2.xsd">
+
+	<app title="Test-Bantch" file="Test-Bantch" packageName="com.majigsaw.testbantch" package="com.majigsaw.testbantch" main="Main" version="1.0.0" company="M.A. Jigsaw" preloader="flixel.system.FlxPreloader" />
+
+	<set name="SWF_VERSION" value="11.8" />
+
+	<window width="1280" height="720" fps="60" orientation="landscape" background="#000000" hardware="true" vsync="false" allow-shaders="true" require-shaders="true" />
+
+	<window if="mobile" fullscreen="true" resizable="false" allow-high-dpi="true" />
+	<window if="desktop" fullscreen="false" resizable="true" allow-high-dpi="true" />
+
+	<set name="BUILD_DIR" value="export/debug" if="debug" />
+	<set name="BUILD_DIR" value="export/release" unless="debug" />
+
+	<source name="source" />
+
+	<haxelib name="flixel" />
+	<haxelib name="hxcpp-debug-server" if="debug" />
+	<haxelib name="extension-androidtools" if="android" />
+
+	<haxedef name="FLX_NO_FOCUS_LOST_SCREEN" />
+	<haxedef name="FLX_NO_DEBUG" unless="debug" />
+	<haxedef name="NAPE_RELEASE_BUILD" unless="debug" />
+	<haxedef name="HXCPP_GC_BIG_BLOCKS" />
+	<haxedef name="HXCPP_CHECK_POINTER" />
+	<haxedef name="HXCPP_STACK_LINE" />
+
+	<haxedev set="webgl" if="web" />
+
+	<config:android permission="android.permission.ACCESS_NETWORK_STATE" />
+	<config:android permission="android.permission.ACCESS_WIFI_STATE" />
+	<config:android permission="android.permission.INTERNET" />
+
+	<config:android gradle-version="7.5.1" />
+	<config:android gradle-plugin="7.3.1" />
+
+</project>
