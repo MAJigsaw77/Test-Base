@@ -13,7 +13,7 @@
 	<set name="BUILD_DIR" value="export/debug" if="debug" />
 	<set name="BUILD_DIR" value="export/release" unless="debug" />
 
-	<source name="source" />
+	<source name="src" />
 
 	<haxelib name="flixel" />
 	<haxelib name="hxcpp-debug-server" if="debug" />
