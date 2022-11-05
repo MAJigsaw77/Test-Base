@@ -17,7 +17,10 @@ package memory;
 #include <mach/mach.h>
 ") 
 #elseif (linux || android)
-@:headerCode("#include <stdio.h>")
+@:headerCode("
+#include <stdio.h>
+#include <sys/resource.h>
+")
 #end
 class Memory
 {
