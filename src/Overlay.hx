@@ -1,7 +1,6 @@
 package;
 
 import haxe.Timer;
-import memory.Memory;
 import openfl.Lib;
 import openfl.events.Event;
 import openfl.system.System;
@@ -11,6 +10,7 @@ import openfl.text.TextFormat;
 class Overlay extends TextField
 {
 	private var times:Array<Float> = [];
+	private var totalMemoryPeak:Int = 0;
 
 	public function new(x:Float, y:Float, color:Int)
 	{
@@ -42,8 +42,12 @@ class Overlay extends TextField
 			else
 				textColor = 0xFFFFFFFF;
 
+			var totalMemory:Int = System.totalMemory;
+			if (totalMemory > totalMemoryPeak)
+				totalMemoryPeak = totalMemory;
+
 			if (visible)
-				text = currentFrames + ' FPS\n' + getInterval(Std.parseFloat(Memory.getCurrentUsage())) + ' / ' + getInterval(Std.parseFloat(Memory.getPeakUsage())) + '\n';
+				text = currentFrames + ' FPS\n' + getInterval(totalMemory) + ' / ' + getInterval(totalMemoryPeak) + '\n';
 		});
 	}
 
