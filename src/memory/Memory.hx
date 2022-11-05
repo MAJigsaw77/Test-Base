@@ -45,7 +45,8 @@ class Memory
 		return (size_t)(rusage.ru_maxrss * 1024L);
 	")
 	#end
-	public static function getPeakUsage():Dynamic { return 0; }
+	public static function getPeakUsage():Dynamic
+		return 0;
 
 	/**
  	 * Returns the current resident set size (physical memory use) measured
@@ -82,5 +83,6 @@ class Memory
 		return (size_t)rss * (size_t)sysconf( _SC_PAGESIZE);
 	")
 	#end
-	public static function getCurrentUsage():Dynamic { return 0; }
+	public static function getCurrentUsage():Dynamic
+		return 0;
 }
