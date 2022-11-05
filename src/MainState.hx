@@ -2,6 +2,7 @@ package;
 
 #if android
 import android.widget.Toast;
+import lime.system.JNI;
 #end
 import flixel.FlxState;
 
