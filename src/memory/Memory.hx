@@ -11,7 +11,7 @@ package memory;
 	</files>
 ')
 @:include("memory.h")
-extern class Memory
+class Memory
 {
 	/**
 	 * Returns the peak (maximum so far) resident set size (physical
