@@ -2,6 +2,7 @@ package;
 
 import haxe.Timer;
 import memory.Memory;
+import openfl.Lib;
 import openfl.events.Event;
 import openfl.system.System;
 import openfl.text.TextField;
