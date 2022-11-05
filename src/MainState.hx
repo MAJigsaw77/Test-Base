@@ -1,7 +1,6 @@
 package;
 
 #if android
-import android.content.Context;
 import android.widget.Toast;
 #end
 import flixel.FlxState;
@@ -13,12 +12,22 @@ class MainState extends FlxState
 		super.create();
 
 		#if android
-		Toast.makeText(Context.getFilesDir(), Toast.LENGTH_LONG);
+		Toast.makeText(getExternalFilesDir(null), Toast.LENGTH_LONG);
 		#end
 	}
 
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
+	}
+
+	private function getExternalFilesDir(type:String = null):String
+	{
+		var getExtensionContext:Dynamic = JNI.createStaticField('org/haxe/extension/Extension', 'mainContext', 'Landroid/content/Context;');
+
+		var getExternalFilesDir_jni:Dynamic = JNI.callMember(JNI.createStaticMethod('android/content/Context', 'getExternalFilesDir', '(Ljava/lang/String;)Ljava/io/File;'), getExtensionContext.get(), [type]);
+		var getAbsolutePath_jni:Dynamic = JNI.createMemberMethod('java/io/File', 'getAbsolutePath', '()Ljava/lang/String;');
+
+		return getAbsolutePath_jni(getExternalFilesDir_jni());
 	}
 }
