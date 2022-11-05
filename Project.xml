@@ -5,10 +5,10 @@
 
 	<set name="SWF_VERSION" value="11.8" />
 
-	<window width="1920" height="1080" fps="60" orientation="landscape" background="#000000" hardware="true" vsync="false" allow-shaders="true" require-shaders="true" />
+	<window width="1280" height="720" fps="60" orientation="landscape" background="#000000" hardware="true" vsync="false" allow-shaders="true" require-shaders="true" allow-high-dpi="true" />
 
-	<window if="mobile" fullscreen="true" resizable="false" allow-high-dpi="true" />
-	<window if="desktop" fullscreen="false" resizable="true" allow-high-dpi="true" />
+	<window if="mobile" fullscreen="true" resizable="false" />
+	<window if="desktop" fullscreen="false" resizable="true" />
 
 	<set name="BUILD_DIR" value="export/debug" if="debug" />
 	<set name="BUILD_DIR" value="export/release" unless="debug" />
