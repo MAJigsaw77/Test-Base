@@ -43,7 +43,7 @@ class Overlay extends TextField
 				textColor = 0xFFFFFFFF;
 
 			if (visible)
-				text = currentFrames + ' FPS\n' + getInterval(Memory.getCurrentUsage()) + ' / ' + getInterval(Memory.getPeakUsage()) + '\n';
+				text = currentFrames + ' FPS\n' + getInterval(Std.float(Memory.getCurrentUsage())) + ' / ' + getInterval(Std.float(Memory.getPeakUsage())) + '\n';
 		});
 	}
 
