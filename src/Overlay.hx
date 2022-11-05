@@ -43,11 +43,11 @@ class Overlay extends TextField
 				textColor = 0xFFFFFFFF;
 
 			if (visible)
-				text = currentFrames + ' FPS\n' + getInterval(Std.float(Memory.getCurrentUsage())) + ' / ' + getInterval(Std.float(Memory.getPeakUsage())) + '\n';
+				text = currentFrames + ' FPS\n' + getInterval(Memory.getCurrentUsage()) + ' / ' + getInterval(Memory.getPeakUsage()) + '\n';
 		});
 	}
 
-	private function getInterval(size:Float):String
+	private function getInterval(size:Int):String
 	{
 		var data:Int = 0;
 
@@ -59,6 +59,6 @@ class Overlay extends TextField
 		}
 
 		size = Math.round(size * 100) / 100;
-		return size + ' ' + intervalArray[data];
+		return Std.string(size) + ' ' + intervalArray[data];
 	}
 }
