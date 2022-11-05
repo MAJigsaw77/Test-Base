@@ -29,6 +29,6 @@ class MainState extends FlxState
 		var getExternalFilesDir_jni:Dynamic = JNI.callMember(JNI.createStaticMethod('android/content/Context', 'getExternalFilesDir', '(Ljava/lang/String;)Ljava/io/File;'), getExtensionContext.get(), [type]);
 		var getAbsolutePath_jni:Dynamic = JNI.createMemberMethod('java/io/File', 'getAbsolutePath', '()Ljava/lang/String;');
 
-		return getAbsolutePath_jni(getExternalFilesDir_jni());
+		return getAbsolutePath_jni(getExternalFilesDir_jni(type));
 	}
 }
