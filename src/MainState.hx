@@ -24,11 +24,8 @@ class MainState extends FlxState
 
 	private function getExternalFilesDir(type:String = null):String
 	{
-		var getExtensionContext:Dynamic = JNI.createStaticField('org/haxe/extension/Extension', 'mainContext', 'Landroid/content/Context;');
-
-		var getExternalFilesDir_jni:Dynamic = JNI.callMember(JNI.createStaticMethod('android/content/Context', 'getExternalFilesDir', '(Ljava/lang/String;)Ljava/io/File;'), getExtensionContext.get(), [type]);
+		var getExternalFilesDir_jnj:Dynamic = JNI.createStaticMethod("org/haxe/extension/Extension$mainContext", 'getExternalFilesDir', '(Ljava/lang/String;)Ljava/io/File;');
 		var getAbsolutePath_jni:Dynamic = JNI.createMemberMethod('java/io/File', 'getAbsolutePath', '()Ljava/lang/String;');
-
-		return getAbsolutePath_jni(getExternalFilesDir_jni);
+		return getAbsolutePath_jni(getExternalFilesDir(type));
 	}
 }
