@@ -13,7 +13,12 @@ class MainState extends FlxState
 		super.create();
 
 		#if android
-		Toast.makeText(Context.getExternalFilesDir(null), Toast.LENGTH_LONG);
+		try
+		{
+			Toast.makeText(Context.getExternalFilesDir(null), Toast.LENGTH_LONG);
+		}
+		catch (e:Dynamic)
+			Toast.makeText(Context.getFilesDir(), Toast.LENGTH_LONG);
 		#end
 	}
 }
