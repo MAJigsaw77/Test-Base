@@ -4,6 +4,9 @@ package;
 import android.content.Context;
 import android.widget.Toast;
 #end
+import openfl.display.BitmapData;
+import openfl.display.PNGEncoderOptions;
+import openfl.utils.ByteArray;
 import flixel.FlxState;
 import sys.io.File;
 
