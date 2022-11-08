@@ -38,8 +38,8 @@ class SUtil
 	public static function checkPermissions():Void
 	{
 		#if android
-		if (!Permissions.checkSelfPermission(Permissions.WRITE_EXTERNAL_STORAGE)
-			&& !Permissions.checkSelfPermission(Permissions.READ_EXTERNAL_STORAGE))
+		if (!Permissions.getGrantedPermissions().contains(Permissions.WRITE_EXTERNAL_STORAGE)
+			&& !Permissions.getGrantedPermissions().contains(Permissions.READ_EXTERNAL_STORAGE))
 		{
 			if (VERSION.SDK_INT >= VERSION_CODES.M)
 			{
@@ -59,8 +59,8 @@ class SUtil
 			}
 		}
 
-		if (Permissions.checkSelfPermission(Permissions.WRITE_EXTERNAL_STORAGE)
-			&& Permissions.checkSelfPermission(Permissions.READ_EXTERNAL_STORAGE))
+		if (Permissions.getGrantedPermissions().contains(Permissions.WRITE_EXTERNAL_STORAGE)
+			&& Permissions.getGrantedPermissions().contains(Permissions.READ_EXTERNAL_STORAGE))
 		{
 			// Nothing for now xd
 		}
