@@ -2,8 +2,8 @@ package;
 
 #if android
 import android.Permissions;
+import android.content.Context;
 import android.os.Build;
-import android.os.Environment;
 import android.widget.Toast;
 #end
 import haxe.CallStack;
@@ -20,6 +20,12 @@ import sys.FileSystem;
 import sys.io.File;
 #end
 
+enum StorageType
+{
+	ANDROID_DATA;
+	ROOT;
+}
+
 /**
  * ...
  * @author Mihai Alexandru (M.A. Jigsaw)
@@ -27,13 +33,13 @@ import sys.io.File;
 class SUtil
 {
 	/**
-	 * A simple function that checks for storage permissions and game files/folders
+	 * A simple function that checks for storage permissions and game files/folders.
 	 */
 	public static function checkPermissions():Void
 	{
 		#if android
-		if (!Permissions.getGrantedPermissions().contains(Permissions.WRITE_EXTERNAL_STORAGE)
-			&& !Permissions.getGrantedPermissions().contains(Permissions.READ_EXTERNAL_STORAGE))
+		if (!Permissions.checkSelfPermission(Permissions.WRITE_EXTERNAL_STORAGE)
+			&& !Permissions.checkSelfPermission(Permissions.READ_EXTERNAL_STORAGE))
 		{
 			if (VERSION.SDK_INT >= VERSION_CODES.M)
 			{
@@ -53,8 +59,8 @@ class SUtil
 			}
 		}
 
-		if (Permissions.getGrantedPermissions().contains(Permissions.WRITE_EXTERNAL_STORAGE)
-			&& Permissions.getGrantedPermissions().contains(Permissions.READ_EXTERNAL_STORAGE))
+		if (Permissions.checkSelfPermission(Permissions.WRITE_EXTERNAL_STORAGE)
+			&& Permissions.checkSelfPermission(Permissions.READ_EXTERNAL_STORAGE))
 		{
 			// Nothing for now xd
 		}
@@ -62,20 +68,22 @@ class SUtil
 	}
 
 	/**
-	 * This returns the external storage path that the game will use
+	 * This returns the external storage path that the game will use by the type.
 	 */
-	public static function getStorageDirectory():String
+	public static function getStorageDirectory(type:StorageType = ANDROID_DATA):String
 	{
 		#if android
-		var daPath:String = Environment.getExternalStorageDirectory() + '/' + '.' + Lib.application.meta.get('file') + '/';
+		var daPath:String = '';
 
-		// just in case if people dont accept the permissions
-		if (!Permissions.getGrantedPermissions().contains(Permissions.WRITE_EXTERNAL_STORAGE)
-			&& !Permissions.getGrantedPermissions().contains(Permissions.READ_EXTERNAL_STORAGE))
-			daPath = LimeSystem.applicationStorageDirectory;
+		switch (type)
+		{
+			case ANDROID_DATA:
+				daPath = Context.getExternalFilesDir(null) + '/';
+			case ROOT:
+				daPath = Context.getFilesDir() + '/';
+		}
 
-		if (!FileSystem.exists(daPath))
-			FileSystem.createDirectory(daPath);
+		SUtil.mkDirs(Path.directory(daPath));
 
 		return daPath;
 		#else
@@ -115,9 +123,7 @@ class SUtil
 			#if (sys && !ios)
 			try
 			{
-				if (!FileSystem.exists(SUtil.getStorageDirectory() + 'logs'))
-					FileSystem.createDirectory(SUtil.getStorageDirectory() + 'logs');
-
+				SUtil.mkDirs(Path.directory(SUtil.getStorageDirectory() + 'logs'));
 				File.saveContent(SUtil.getStorageDirectory()
 					+ 'logs/'
 					+ Lib.application.meta.get('file')
@@ -139,6 +145,9 @@ class SUtil
 		});
 	}
 
+	/**
+	 * This is mostly a fork of https://github.com/openfl/hxp/blob/master/src/hxp/System.hx#L595
+	 */
 	public static function mkDirs(directory:String):Void
 	{
 		if (FileSystem.exists(directory) && FileSystem.isDirectory(directory))
@@ -178,9 +187,7 @@ class SUtil
 	{
 		try
 		{
-			if (!FileSystem.exists(SUtil.getStorageDirectory() + 'saves'))
-				FileSystem.createDirectory(SUtil.getStorageDirectory() + 'saves');
-
+			SUtil.mkDirs(Path.directory(SUtil.getStorageDirectory() + 'saves'));
 			File.saveContent(SUtil.getStorageDirectory() + 'saves/' + fileName + fileExtension, fileData);
 			#if android
 			Toast.makeText("File Saved Successfully!", Toast.LENGTH_LONG);
