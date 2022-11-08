@@ -1,7 +1,6 @@
 package;
 
 #if android
-import android.content.Context;
 import android.widget.Toast;
 #end
 import flixel.FlxState;
@@ -13,7 +12,12 @@ class MainState extends FlxState
 		super.create();
 
 		#if android
-		Toast.makeText(Context.getExternalFilesDir(null), Toast.LENGTH_LONG);
+		try
+		{
+			Toast.makeText(SUtil.getStorageDirectory(ANDROID_DATA), Toast.LENGTH_LONG);
+		}
+		catch (e:Dynamic)
+			Toast.makeText(SUtil.getStorageDirectory(ROOT), Toast.LENGTH_LONG);
 		#end
 	}
 }
