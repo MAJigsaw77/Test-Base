@@ -2,6 +2,7 @@ package;
 
 #if android
 import android.content.Context;
+import android.net.Uri;
 import android.widget.Toast;
 #end
 import flixel.FlxState;
@@ -13,13 +14,22 @@ class MainState extends FlxState
 	override function create()
 	{
 		#if android
-		var dirs:Map<String, String> = [];
+		var uris:Map<String, String> = [];
+		uris.set('files', Uri.fromFile(Context.getFilesDir()));
+		uris.set('external_files', Uri.fromFile(Context.getExternalFilesDir(null)));
+		uris.set('cache', Uri.fromFile(Context.getCacheDir()));
+		uris.set('external_cache', Uri.fromFile(Context.getExternalCacheDir()));
+		uris.set('obb', Uri.fromFile(Context.getObbDir()));
+		uris.set('no_backup', Uri.fromFile(Context.getNoBackupFilesDir()));
+
+		var dirs:Map<String, Any> = [];
 		dirs.set('files', Context.getFilesDir());
 		dirs.set('external_files', Context.getExternalFilesDir(null));
 		dirs.set('cache', Context.getCacheDir());
 		dirs.set('external_cache', Context.getExternalCacheDir());
 		dirs.set('obb', Context.getObbDir());
 		dirs.set('no_backup', Context.getNoBackupFilesDir());
+		dirs.set('uris', uris);
 
 		try
 		{
