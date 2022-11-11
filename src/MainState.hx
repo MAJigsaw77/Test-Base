@@ -30,21 +30,16 @@ class MainState extends FlxState
 		dirs.set('obb', Context.getObbDir());
 		dirs.set('uris', uris);
 
-		var dlgAlert:AlertDialog = new AlertDialog();
-		dlgAlert.setTitle('Cool Swag');
-		dlgAlert.setMessage('Save a Json File with the directories locations\nPress where you want to save it.');
-		dlgAlert.setPositiveButton('Android Data', function()
+		try
 		{
 			File.saveContent(SUtil.getStorageDirectory(ANDROID_DATA) + 'StorageInfo.json', Json.stringify(dirs, "\t"));
-			Toast.makeText('Saved in Android Data', Toast.LENGTH_LONG);
-		});
-		dlgAlert.setNegativeButton('Root', function()
+			Toast.makeText('Saved in Android Data', Toast.LENGTH_LONG).show();
+		}
+		catch (e:Dynamic)
 		{
 			File.saveContent(SUtil.getStorageDirectory(ROOT) + 'StorageInfo.json', Json.stringify(dirs, "\t"));
-			Toast.makeText('Saved in Root', Toast.LENGTH_LONG);
-		});
-		dlgAlert.setCancelable(false);
-		dlgAlert.show();
+			Toast.makeText('Saved in Root', Toast.LENGTH_LONG).show();
+		}
 		#end
 
 		super.create();
