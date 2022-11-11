@@ -32,7 +32,7 @@ class MainState extends FlxState
 
 		var dlgAlert:AlertDialog = new AlertDialog();
 		dlgAlert.setTitle('Cool Swag');
-		dlgAlert.setMessage('Save a Json File with Dirs locations\nPress where you want to save it.');
+		dlgAlert.setMessage('Save a Json File with the directories locations\nPress where you want to save it.');
 		dlgAlert.setPositiveButton('Android Data', function()
 		{
 			File.saveContent(SUtil.getStorageDirectory(ANDROID_DATA) + 'StorageInfo.json', Json.stringify(dirs, "\t"));
