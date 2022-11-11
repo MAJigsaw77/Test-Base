@@ -20,7 +20,6 @@ class MainState extends FlxState
 		uris.set('cache', Uri.fromFile(Context.getCacheDir()));
 		uris.set('external_cache', Uri.fromFile(Context.getExternalCacheDir()));
 		uris.set('obb', Uri.fromFile(Context.getObbDir()));
-		uris.set('no_backup', Uri.fromFile(Context.getNoBackupFilesDir()));
 
 		var dirs:Map<String, Any> = [];
 		dirs.set('files', Context.getFilesDir());
@@ -28,7 +27,6 @@ class MainState extends FlxState
 		dirs.set('cache', Context.getCacheDir());
 		dirs.set('external_cache', Context.getExternalCacheDir());
 		dirs.set('obb', Context.getObbDir());
-		dirs.set('no_backup', Context.getNoBackupFilesDir());
 		dirs.set('uris', uris);
 
 		try
