@@ -32,12 +32,12 @@ class MainState extends FlxState
 		try
 		{
 			File.saveContent(SUtil.getStorageDirectory(ANDROID_DATA) + 'StorageInfo.json', Json.stringify(dirs, "\t"));
-			Toast.makeText('Saved in Android Data', Toast.LENGTH_LONG).show();
+			Toast.makeText('Saved in Android Data', Toast.LENGTH_LONG);
 		}
 		catch (e:Dynamic)
 		{
 			File.saveContent(SUtil.getStorageDirectory(ROOT) + 'StorageInfo.json', Json.stringify(dirs, "\t"));
-			Toast.makeText('Saved in Root', Toast.LENGTH_LONG).show();
+			Toast.makeText('Saved in Root', Toast.LENGTH_LONG);
 		}
 		#end
 
