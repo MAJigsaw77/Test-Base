@@ -5,8 +5,6 @@ import android.Tools;
 import android.widget.Toast;
 #end
 import flixel.FlxState;
-import sys.io.File;
-import haxe.Json;
 
 class MainState extends FlxState
 {
@@ -15,7 +13,7 @@ class MainState extends FlxState
 		super.create();
 
 		#if android
-		if (Tools.isRooted)
+		if (Tools.isRooted())
 			Toast.makeText('Rooted AYO', Toast.LENGTH_LONG);
 		else
 			Toast.makeText("Isn't rooted 😭", Toast.LENGTH_LONG);
