@@ -4,7 +4,7 @@ package;
 import android.Tools;
 import android.net.Uri;
 import android.widget.Toast;
-import videoview.VideoView;
+import extension.videoview.VideoView;
 #end
 import flixel.FlxState;
 import sys.FileSystem;
