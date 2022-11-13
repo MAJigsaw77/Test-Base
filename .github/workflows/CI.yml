@@ -48,6 +48,7 @@ jobs:
           haxelib --quiet --never run lime setup
           haxelib --quiet install hxcpp-debug-server
           haxelib --quiet git extension-androidtools https://github.com/MAJigsaw77/extension-androidtools.git
+          haxelib --quiet git extension-videoview https://github.com/MAJigsaw77/extension-videoview.git
 
       - name: Setup Paths
         run: |
