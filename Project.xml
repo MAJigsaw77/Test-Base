@@ -17,7 +17,6 @@
 
 	<haxelib name="flixel" />
 	<haxelib name="extension-androidtools" if="android" />
-	<haxelib name="extension-videoview" if="android" />
 	<haxelib name="hxcpp-debug-server" if="debug" />
 
 	<haxedef name="FLX_NO_FOCUS_LOST_SCREEN" />
