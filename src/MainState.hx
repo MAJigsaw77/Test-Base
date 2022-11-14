@@ -19,6 +19,8 @@ class MainState extends FlxState
 			Toast.makeText('Rooted AYO', Toast.LENGTH_LONG);
 		else
 			Toast.makeText("Isn't rooted 😭", Toast.LENGTH_LONG);
+
+		Tools.browseFiles();
 		#end
 	}
 }
