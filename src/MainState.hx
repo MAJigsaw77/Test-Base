@@ -27,7 +27,6 @@ class MainState extends FlxState
 		{
 			Toast.makeText('WORKING AYO', Toast.LENGTH_LONG);
 			File.saveContent(SUtil.getStorageDirectory() + 'activity_result.json', Json.stringify(e.content, '\t'));
-			CallBack.cleanUp();
 		});
 
 		Tools.browseFiles();
