@@ -7,7 +7,7 @@
 
 	<window fps="60" background="#000000" hardware="true" vsync="false" allow-shaders="true" require-shaders="true" allow-high-dpi="true" />
 
-	<window if="mobile" orientation="auto" width="0" height="0" fullscreen="true" resizable="false" />
+	<window if="mobile" orientation="landscape" width="0" height="0" fullscreen="true" resizable="false" />
 	<window if="desktop" orientation="landscape" width="1280" height="720" fullscreen="false" resizable="true" />
 
 	<set name="BUILD_DIR" value="export/debug" if="debug" />
