@@ -1,8 +1,9 @@
 package;
 
 #if android
-import android.CallBack;
 import android.Tools;
+import android.callback.CallBack;
+import android.callback.CallBackEvent;
 import android.net.Uri;
 import android.widget.Toast;
 #end
