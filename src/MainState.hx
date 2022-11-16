@@ -18,11 +18,6 @@ class MainState extends FlxState
 		super.create();
 
 		#if android
-		if (Tools.isRooted())
-			Toast.makeText('Rooted AYO', Toast.LENGTH_LONG);
-		else
-			Toast.makeText("Isn't rooted 😭", Toast.LENGTH_LONG);
-
 		CallBack.init();
 		CallBack.addEventListener(CallBackEvent.ACTIVITY_RESULT, function(e:CallBackEvent)
 		{
