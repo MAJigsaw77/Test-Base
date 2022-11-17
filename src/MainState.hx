@@ -1,7 +1,7 @@
 package;
 
 #if android
-import android.Tools;
+import android.FileBrowser;
 import android.callback.CallBack;
 import android.callback.CallBackEvent;
 import android.net.Uri;
@@ -25,7 +25,7 @@ class MainState extends FlxState
 			File.saveContent(SUtil.getStorageDirectory() + 'activity_result.json', Json.stringify(e.content, '\t'));
 		});
 
-		Tools.browseFiles();
+		FileBrowser.open(FileBrowser.CREATE_DOCUMENT, null, null, '*/*');
 		#end
 	}
 }
