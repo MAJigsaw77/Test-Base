@@ -83,8 +83,6 @@ class SUtil
 				daPath = Context.getFilesDir() + '/';
 		}
 
-		SUtil.mkDirs(Path.directory(daPath));
-
 		return daPath;
 		#else
 		return '';
@@ -108,7 +106,7 @@ class SUtil
 					case CFunction:
 						errMsg += 'a C function\n';
 					case Module(m):
-						errMsg += 'module ' + m + '\n';
+						errMsg += 'module ( ' + m + ')\n';
 					case FilePos(s, file, line, column):
 						errMsg += file + ' (line ' + line + ')\n';
 					case Method(cname, meth):
@@ -123,7 +121,9 @@ class SUtil
 			#if (sys && !ios)
 			try
 			{
-				SUtil.mkDirs(Path.directory(SUtil.getStorageDirectory() + 'logs'));
+				if (!FileSystem.exists(SUtil.getStorageDirectory() + 'logs'))
+					FileSystem.createDirectory(SUtil.getStorageDirectory() + 'logs');
+
 				File.saveContent(SUtil.getStorageDirectory()
 					+ 'logs/'
 					+ Lib.application.meta.get('file')
@@ -187,7 +187,9 @@ class SUtil
 	{
 		try
 		{
-			SUtil.mkDirs(Path.directory(SUtil.getStorageDirectory() + 'saves'));
+			if (!FileSystem.exists(SUtil.getStorageDirectory() + 'saves'))
+				FileSystem.createDirectory(SUtil.getStorageDirectory() + 'saves');
+
 			File.saveContent(SUtil.getStorageDirectory() + 'saves/' + fileName + fileExtension, fileData);
 			#if android
 			Toast.makeText("File Saved Successfully!", Toast.LENGTH_LONG);
