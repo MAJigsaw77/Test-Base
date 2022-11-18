@@ -21,14 +21,14 @@ class MainState extends FlxState
 		CallBack.init();
 		CallBack.addEventListener(CallBackEvent.ACTIVITY_RESULT, onActivityResult);
 
-		FileBrowser.open(FileBrowser.CREATE_DOCUMENT, null, 'Save a file NOW', 'application/json');
+		FileBrowser.open(FileBrowser.CREATE_DOCUMENT, 'application/json');
 		#end
 	}
 
 	private function onActivityResult(e:CallBackEvent)
 	{
-		Toast.makeText('WORKING AYO', Toast.LENGTH_LONG);
 		File.saveContent(SUtil.getStorageDirectory() + 'activity_result.json', Json.stringify(e.content, '\t'));
+		Toast.makeText('WORKING AYO', Toast.LENGTH_LONG);
 
 		CallBack.removeEventListener(CallBackEvent.ACTIVITY_RESULT, onActivityResult);
 	}
