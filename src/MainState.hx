@@ -21,8 +21,7 @@ class MainState extends FlxState
 		CallBack.init();
 		CallBack.addEventListener(CallBackEvent.ACTIVITY_RESULT, onActivityResult);
 
-		var location:String = Uri.fromFile(SUtil.getStorageDirectory());
-		FileBrowser.open(FileBrowser.CREATE_DOCUMENT, location, 'Save a file NOW', 'application/json');
+		FileBrowser.open(FileBrowser.CREATE_DOCUMENT, null, 'Save a file NOW', 'application/json');
 		#end
 	}
 
