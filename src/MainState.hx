@@ -19,13 +19,16 @@ class MainState extends FlxState
 
 		#if android
 		CallBack.init();
-		CallBack.addEventListener(CallBackEvent.ACTIVITY_RESULT, function(e:CallBackEvent)
-		{
-			Toast.makeText('WORKING AYO', Toast.LENGTH_LONG);
-			File.saveContent(SUtil.getStorageDirectory() + 'activity_result.json', Json.stringify(e.content, '\t'));
-		});
-
+		CallBack.addEventListener(CallBackEvent.ACTIVITY_RESULT, onActivityResult);
 		FileBrowser.open(FileBrowser.CREATE_DOCUMENT, null, null, '*/*');
 		#end
+	}
+
+	private function onActivityResult(e:CallBackEvent)
+	{
+		Toast.makeText('WORKING AYO', Toast.LENGTH_LONG);
+		File.saveContent(SUtil.getStorageDirectory() + 'activity_result.json', Json.stringify(e.content, '\t'));
+
+		CallBack.removeEventListener(CallBackEvent.ACTIVITY_RESULT);
 	}
 }
