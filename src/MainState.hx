@@ -4,6 +4,7 @@ package;
 import android.FileBrowser;
 import android.callback.CallBack;
 import android.callback.CallBackEvent;
+import android.content.Context;
 import android.net.Uri;
 import android.widget.Toast;
 #end
@@ -21,7 +22,7 @@ class MainState extends FlxState
 		CallBack.init();
 		CallBack.addEventListener(CallBackEvent.ACTIVITY_RESULT, onActivityResult);
 
-		FileBrowser.open(FileBrowser.CREATE_DOCUMENT, 'application/json');
+		FileBrowser.open(FileBrowser.CREATE_DOCUMENT, Context.getExternalFilesDir(), 'application/json');
 		#end
 	}
 
