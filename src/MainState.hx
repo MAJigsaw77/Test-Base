@@ -20,7 +20,7 @@ class MainState extends FlxState
 		#if android
 		CallBack.init();
 		CallBack.addEventListener(CallBackEvent.ACTIVITY_RESULT, onActivityResult);
-		FileBrowser.open(FileBrowser.CREATE_DOCUMENT, null, null, '*/*');
+		FileBrowser.open(FileBrowser.CREATE_DOCUMENT, Uri.fromFile(SUtil.getStorageDirectory()), 'Save a file NOW', 'application/json');
 		#end
 	}
 
@@ -29,6 +29,6 @@ class MainState extends FlxState
 		Toast.makeText('WORKING AYO', Toast.LENGTH_LONG);
 		File.saveContent(SUtil.getStorageDirectory() + 'activity_result.json', Json.stringify(e.content, '\t'));
 
-		CallBack.removeEventListener(CallBackEvent.ACTIVITY_RESULT);
+		CallBack.removeEventListener(CallBackEvent.ACTIVITY_RESULT, onActivityResult);
 	}
 }
