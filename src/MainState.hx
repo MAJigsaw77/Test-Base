@@ -20,7 +20,9 @@ class MainState extends FlxState
 		#if android
 		CallBack.init();
 		CallBack.addEventListener(CallBackEvent.ACTIVITY_RESULT, onActivityResult);
-		FileBrowser.open(FileBrowser.CREATE_DOCUMENT, Uri.fromFile(SUtil.getStorageDirectory()), 'Save a file NOW', 'application/json');
+
+		var location:String = Uri.fromFile(SUtil.getStorageDirectory());
+		FileBrowser.open(FileBrowser.CREATE_DOCUMENT, location, 'Save a file NOW', 'application/json');
 		#end
 	}
 
