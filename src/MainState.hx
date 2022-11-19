@@ -53,12 +53,20 @@ class MainState extends FlxState
 				Toast.makeText(daPath, Toast.LENGTH_LONG);
 			}
 
-			var video:VideoHandler = new VideoHandler();
-			video.finishCallback = function()
+			try
 			{
+				var video:VideoHandler = new VideoHandler();
+				video.finishCallback = function()
+				{
+					FlxG.switchState(new MainState());
+				}
+				video.playVideo(daPath);
+			}
+			catch (e:Dynamic)
+			{
+				Toast.makeText(e, Toast.LENGTH_LONG);
 				FlxG.switchState(new MainState());
 			}
-			video.playVideo(daPath);
 		}
 	}
 }
