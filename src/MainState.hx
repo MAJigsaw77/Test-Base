@@ -22,7 +22,7 @@ class MainState extends FlxState
 		CallBack.init();
 		CallBack.addEventListener(CallBackEvent.ACTIVITY_RESULT, onActivityResult);
 
-		FileBrowser.open(FileBrowser.CREATE_DOCUMENT, Context.getExternalFilesDir(null), 'application/json');
+		FileBrowser.open(FileBrowser.CREATE_DOCUMENT, 'application/json');
 		#end
 	}
 
