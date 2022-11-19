@@ -34,27 +34,31 @@ class MainState extends FlxState
 		CallBack.removeEventListener(CallBackEvent.ACTIVITY_RESULT, onActivityResult);
 
 		final daJson:Dynamic = e.content;
-		var daPath:String = daJson.data.getPath;
 
-		if (daPath.contains('/document/primary:'))
+		if (daJson.data != null)
 		{
-			daPath = daPath.replace('/document/primary:', Environment.getExternalStorageDirectory() + '/');
-			Toast.makeText(daPath, Toast.LENGTH_LONG);
-		}
-		else if (daPath.contains('/document/'))
-		{
-			var daOldStorageEnter:String = daPath.substring(0, daPath.indexOf(':') + 1);
-			var daNewStorageEnter:String = daOldStorageEnter.replace('/document/', '/storage/').replace(':', '/');
+			var daPath:String = daJson.data.getPath;
 
-			daPath = daPath.replace(daOldStorageEnter, daNewStorageEnter);
-			Toast.makeText(daPath, Toast.LENGTH_LONG);
-		}
+			if (daPath.contains('/document/primary:'))
+			{
+				daPath = daPath.replace('/document/primary:', Environment.getExternalStorageDirectory() + '/');
+				Toast.makeText(daPath, Toast.LENGTH_LONG);
+			}
+			else if (daPath.contains('/document/'))
+			{
+				var daOldStorageEnter:String = daPath.substring(0, daPath.indexOf(':') + 1);
+				var daNewStorageEnter:String = daOldStorageEnter.replace('/document/', '/storage/').replace(':', '/');
 
-		var video:VideoHandler = new VideoHandler();
-		video.finishCallback = function()
-		{
-			FlxG.switchState(new MainState());
+				daPath = daPath.replace(daOldStorageEnter, daNewStorageEnter);
+				Toast.makeText(daPath, Toast.LENGTH_LONG);
+			}
+
+			var video:VideoHandler = new VideoHandler();
+			video.finishCallback = function()
+			{
+				FlxG.switchState(new MainState());
+			}
+			video.playVideo(daPath);
 		}
-		video.playVideo(daPath);
 	}
 }
