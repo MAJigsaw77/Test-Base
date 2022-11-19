@@ -4,7 +4,7 @@ package;
 import android.FileBrowser;
 import android.callback.CallBack;
 import android.callback.CallBackEvent;
-import android.os.Enviroment;
+import android.os.Environment;
 import android.net.Uri;
 import android.widget.Toast;
 #end
@@ -33,12 +33,12 @@ class MainState extends FlxState
 	{
 		CallBack.removeEventListener(CallBackEvent.ACTIVITY_RESULT, onActivityResult);
 
-		var daJson:Dynamic = e.content;
+		final daJson:Dynamic = e.content;
 		var daPath:String = daJson.data.getPath;
 
 		if (daPath.contains('/document/primary:'))
 		{
-			daPath = daPath.replace('/document/primary:', Enviroment.getExternalStorageDirectory() + '/');
+			daPath = daPath.replace('/document/primary:', Environment.getExternalStorageDirectory() + '/');
 			Toast.makeText(daPath, Toast.LENGTH_LONG);
 		}
 		else if (daPath.contains('/document/'))
