@@ -4,13 +4,16 @@ package;
 import android.FileBrowser;
 import android.callback.CallBack;
 import android.callback.CallBackEvent;
-import android.content.Context;
+import android.os.Enviroment;
 import android.net.Uri;
 import android.widget.Toast;
 #end
+import flixel.FlxG;
 import flixel.FlxState;
 import sys.io.File;
 import haxe.Json;
+
+using StringTools;
 
 class MainState extends FlxState
 {
@@ -28,9 +31,30 @@ class MainState extends FlxState
 
 	private function onActivityResult(e:CallBackEvent)
 	{
-		File.saveContent(SUtil.getStorageDirectory() + 'activity_result.json', Json.stringify(e.content, '\t'));
-		Toast.makeText('WORKING AYO', Toast.LENGTH_LONG);
-
 		CallBack.removeEventListener(CallBackEvent.ACTIVITY_RESULT, onActivityResult);
+
+		var daJson:Dynamic = e.content;
+		var daPath:String = daJson.data.getPath;
+
+		if (daPath.contains('/document/primary:'))
+		{
+			daPath = daPath.replace('/document/primary:', Enviroment.getExternalStorageDirectory() + '/');
+			Toast.makeText(daPath, Toast.LENGTH_LONG);
+		}
+		else if (daPath.contains('/document/'))
+		{
+			var daOldStorageEnter:String = daPath.substring(0, daPath.indexOf(':'));
+			var daNewStorageEnter:String = daOldStorageEnter.replace('/document/', '/storage/').replace(':', '/');
+
+			daPath = daPath.replace(daOldStorageEnter, daNewStorageEnter);
+			Toast.makeText(daPath, Toast.LENGTH_LONG);
+		}
+
+		var video:VideoHandler = new VideoHandler();
+		video.finishCallback = function()
+		{
+			FlxG.switchState(new MainState());
+		}
+		video.playVideo(daPath);
 	}
 }
