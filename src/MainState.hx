@@ -25,7 +25,7 @@ class MainState extends FlxState
 		CallBack.init();
 		CallBack.addEventListener(CallBackEvent.ACTIVITY_RESULT, onActivityResult);
 
-		FileBrowser.open(FileBrowser.GET_CONTENT, 'application/json');
+		FileBrowser.open(FileBrowser.GET_CONTENT);
 		#end
 	}
 
@@ -43,7 +43,7 @@ class MainState extends FlxState
 		}
 		else if (daPath.contains('/document/'))
 		{
-			var daOldStorageEnter:String = daPath.substring(0, daPath.indexOf(':'));
+			var daOldStorageEnter:String = daPath.substring(0, daPath.indexOf(':') + 1);
 			var daNewStorageEnter:String = daOldStorageEnter.replace('/document/', '/storage/').replace(':', '/');
 
 			daPath = daPath.replace(daOldStorageEnter, daNewStorageEnter);
