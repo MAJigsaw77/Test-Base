@@ -10,7 +10,7 @@ import android.widget.Toast;
 #end
 import flixel.FlxG;
 import flixel.FlxState;
-import sys.io.File;
+import sys.FileSystem;
 import haxe.Json;
 
 using StringTools;
@@ -33,39 +33,33 @@ class MainState extends FlxState
 	{
 		CallBack.removeEventListener(CallBackEvent.ACTIVITY_RESULT, onActivityResult);
 
-		final daJson:Dynamic = e.content;
-
-		if (daJson.data != null)
+		if (e.content != null && e.content.data != null)
 		{
-			var daPath:String = daJson.data.getPath;
+			var daPath:String = e.content.data.getPath;
 
 			if (daPath.contains('/document/primary:'))
-			{
 				daPath = daPath.replace('/document/primary:', Environment.getExternalStorageDirectory() + '/');
-				Toast.makeText(daPath, Toast.LENGTH_LONG);
-			}
 			else if (daPath.contains('/document/'))
 			{
 				var daOldStorageEnter:String = daPath.substring(0, daPath.indexOf(':') + 1);
 				var daNewStorageEnter:String = daOldStorageEnter.replace('/document/', '/storage/').replace(':', '/');
 
 				daPath = daPath.replace(daOldStorageEnter, daNewStorageEnter);
-				Toast.makeText(daPath, Toast.LENGTH_LONG);
 			}
 
-			try
+			if (FileSystem.exists(daPath))
 			{
 				var video:VideoHandler = new VideoHandler();
 				video.finishCallback = function()
 				{
-					FlxG.switchState(new MainState());
+					FlxG.resetGame();
 				}
 				video.playVideo(daPath);
 			}
-			catch (e:Dynamic)
+			else
 			{
-				Toast.makeText(e, Toast.LENGTH_LONG);
-				FlxG.switchState(new MainState());
+				Toast.makeText(daPath + ' - [DON'T EXISTS]', Toast.LENGTH_LONG);
+				FlxG.resetGame();
 			}
 		}
 	}
