@@ -19,6 +19,10 @@ class MainState extends FlxState
 {
 	override function create()
 	{
+		#if android
+		FlxG.android.preventDefaultKeys = [BACK];
+		#end
+
 		super.create();
 
 		#if android
