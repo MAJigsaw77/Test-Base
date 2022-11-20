@@ -58,7 +58,7 @@ class MainState extends FlxState
 			}
 			else
 			{
-				Toast.makeText(daPath + ' - [DON'T EXISTS]', Toast.LENGTH_LONG);
+				Toast.makeText(daPath + ": Doesn't exists", Toast.LENGTH_LONG);
 				FlxG.resetGame();
 			}
 		}
