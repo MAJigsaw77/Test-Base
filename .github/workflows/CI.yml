@@ -42,8 +42,8 @@ jobs:
 
       - name: Install Haxelibs
         run: |
-          haxelib --quiet install lime
-          haxelib --quiet install openfl
+          haxelib --quiet install lime 7.9.0
+          haxelib --quiet install openfl 9.1.0
           haxelib --quiet install flixel 5.0.0-alpha.2
           haxelib --quiet install hxcpp-debug-server
           haxelib --quiet git extension-androidtools https://github.com/MAJigsaw77/extension-androidtools.git
@@ -57,6 +57,8 @@ jobs:
           haxelib run lime config JAVA_HOME $JAVA_HOME
           haxelib run lime config ANDROID_SETUP true
           haxelib set flixel 5.0.0-alpha.2
+          haxelib set lime 7.9.0
+          haxelib set openfl 9.1.0
           haxelib list
         env:
           ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
