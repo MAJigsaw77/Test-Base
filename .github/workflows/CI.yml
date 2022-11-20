@@ -44,7 +44,7 @@ jobs:
         run: |
           haxelib --quiet install lime
           haxelib --quiet install openfl
-          haxelib --quiet install flixel
+          haxelib --quiet install flixel 5.0.0-alpha.2
           haxelib --quiet install hxcpp-debug-server
           haxelib --quiet git extension-androidtools https://github.com/MAJigsaw77/extension-androidtools.git
           haxelib --quiet git hxCodec https://github.com/polybiusproxy/hxCodec.git
@@ -56,6 +56,7 @@ jobs:
           haxelib run lime config ANDROID_NDK_ROOT $ANDROID_NDK_HOME
           haxelib run lime config JAVA_HOME $JAVA_HOME
           haxelib run lime config ANDROID_SETUP true
+          haxelib set flixel 5.0.0-alpha.2
           haxelib list
         env:
           ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
