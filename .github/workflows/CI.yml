@@ -42,8 +42,8 @@ jobs:
 
       - name: Install Haxelibs
         run: |
-          haxelib --quiet install lime 7.9.0
-          haxelib --quiet install openfl 9.1.0
+          haxelib --quiet install lime
+          haxelib --quiet install openfl
           haxelib --quiet install flixel
           haxelib --quiet --never run lime setup
           haxelib --quiet install hxcpp-debug-server
@@ -57,8 +57,6 @@ jobs:
           haxelib run lime config ANDROID_NDK_ROOT $ANDROID_NDK_HOME
           haxelib run lime config JAVA_HOME $JAVA_HOME
           haxelib run lime config ANDROID_SETUP true
-          haxelib set lime 7.9.0
-          haxelib set openfl 9.1.0
           haxelib list
         env:
           ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
