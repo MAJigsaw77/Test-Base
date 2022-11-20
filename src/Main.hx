@@ -20,5 +20,7 @@ class Main extends Sprite
 
 		addChild(new FlxGame(width, height, MainState, framerate, framerate, false, false));
 		addChild(new Overlay(10, 10, 0xFFFFFF));
+
+		Lib.current.stage.scaleMode = NO_SCALE;
 	}
 }
