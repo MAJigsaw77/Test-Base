@@ -18,7 +18,7 @@ class Main extends Sprite
 		final height:Int = Math.ceil(Lib.current.stage.stageHeight / zoom);
 		final framerate:Int = Std.int(Lib.current.stage.frameRate);
 
-		addChild(new FlxGame(width, height, MainState, framerate, framerate, false, false));
+		addChild(new FlxGame(width, height, State, framerate, framerate, true, false));
 		addChild(new Overlay(10, 10, 0xFFFFFF));
 	}
 }
