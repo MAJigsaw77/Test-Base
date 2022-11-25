@@ -15,7 +15,7 @@ import haxe.Json;
 
 using StringTools;
 
-class MainState extends FlxState
+class State extends FlxState
 {
 	override function create()
 	{
@@ -28,15 +28,12 @@ class MainState extends FlxState
 		#if android
 		CallBack.init();
 		CallBack.addEventListener(CallBackEvent.ACTIVITY_RESULT, onActivityResult);
-
 		FileBrowser.open(FileBrowser.GET_CONTENT);
 		#end
 	}
 
 	private function onActivityResult(e:CallBackEvent)
 	{
-		CallBack.removeEventListener(CallBackEvent.ACTIVITY_RESULT, onActivityResult);
-
 		if (e.content != null && e.content.data != null)
 		{
 			var daPath:String = e.content.data.getPath;
@@ -45,10 +42,8 @@ class MainState extends FlxState
 				daPath = daPath.replace('/document/primary:', Environment.getExternalStorageDirectory() + '/');
 			else if (daPath.contains('/document/'))
 			{
-				var daOldStorageEnter:String = daPath.substring(0, daPath.indexOf(':') + 1);
-				var daNewStorageEnter:String = daOldStorageEnter.replace('/document/', '/storage/').replace(':', '/');
-
-				daPath = daPath.replace(daOldStorageEnter, daNewStorageEnter);
+				final daOldStorageEnter:String = daPath.substring(0, daPath.indexOf(':') + 1);
+				daPath = daPath.replace(daOldStorageEnter, daOldStorageEnter.replace('/document/', '/storage/').replace(':', '/'));
 			}
 
 			if (FileSystem.exists(daPath))
@@ -56,6 +51,7 @@ class MainState extends FlxState
 				var video:VideoHandler = new VideoHandler();
 				video.finishCallback = function()
 				{
+					CallBack.removeEventListener(CallBackEvent.ACTIVITY_RESULT, onActivityResult);
 					FlxG.resetGame();
 				}
 				video.playVideo(daPath);
@@ -63,6 +59,7 @@ class MainState extends FlxState
 			else
 			{
 				Toast.makeText(daPath + ": Doesn't exists", Toast.LENGTH_LONG);
+				CallBack.removeEventListener(CallBackEvent.ACTIVITY_RESULT, onActivityResult);
 				FlxG.resetGame();
 			}
 		}
