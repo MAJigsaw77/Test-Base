@@ -26,6 +26,7 @@
 	<haxedef name="HXCPP_GC_BIG_BLOCKS" />
 	<haxedef name="HXCPP_CHECK_POINTER" />
 	<haxedef name="HXCPP_STACK_LINE" />
+	<haxedef name="HXCPP_STACK_TRACE"/>
 
 	<config:android permission="android.permission.ACCESS_NETWORK_STATE" />
 	<config:android permission="android.permission.ACCESS_WIFI_STATE" />
