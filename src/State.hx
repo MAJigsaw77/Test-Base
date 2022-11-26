@@ -9,7 +9,7 @@ import android.net.Uri;
 import android.widget.Toast;
 #end
 import ffmpeg.Version;
-import ffmpeg.flixel.FlxVideoSprite;
+import ffmpeg.openfl.OpenFLBitmapVideo;
 import flixel.FlxG;
 import flixel.FlxState;
 import sys.FileSystem;
@@ -18,6 +18,8 @@ using StringTools;
 
 class State extends FlxState
 {
+	private var video:OpenFLBitmapVideo;
+
 	override function create()
 	{
 		#if android
@@ -40,6 +42,14 @@ class State extends FlxState
 		#end
 	}
 
+	override function update(elapsed:Float)
+	{
+		if (video != null && FlxG.game.contains(video) && FlxG.keys.justPressed.SPACE #if android || FlxG.android.justReleased.BACK #end)
+			video.play();
+
+		super.update(elapsed);
+	}
+
 	private function onActivityResult(e:CallBackEvent)
 	{
 		if (e.content != null && e.content.data != null)
@@ -55,7 +65,11 @@ class State extends FlxState
 			}
 
 			if (FileSystem.exists(daPath))
-				add(new FlxVideoSprite(daPath));
+			{
+				video = new OpenFLBitmapVideo();
+				video.open(daPath);
+				FlxG.addChildBelowMouse(video);
+			}
 			else
 			{
 				Toast.makeText(daPath + ": Doesn't exists", Toast.LENGTH_LONG);
