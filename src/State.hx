@@ -44,7 +44,7 @@ class State extends FlxState
 
 	override function update(elapsed:Float)
 	{
-		if (video != null && FlxG.game.contains(video) && FlxG.keys.justPressed.SPACE #if android || FlxG.android.justReleased.BACK #end)
+		if (video != null && FlxG.keys.justPressed.SPACE #if android || FlxG.android.justReleased.BACK #end)
 			video.play();
 	}
 
