@@ -1,17 +1,11 @@
 package;
 
 #if android
-import android.FileBrowser;
-import android.callback.CallBack;
-import android.callback.CallBackEvent;
-import android.os.Environment;
-import android.net.Uri;
 import android.widget.Toast;
 #end
+import ffmpeg.Version;
 import flixel.FlxG;
 import flixel.FlxState;
-import sys.FileSystem;
-import haxe.Json;
 
 using StringTools;
 
@@ -25,43 +19,11 @@ class State extends FlxState
 
 		super.create();
 
-		#if android
-		CallBack.init();
-		CallBack.addEventListener(CallBackEvent.ACTIVITY_RESULT, onActivityResult);
-		FileBrowser.open(FileBrowser.GET_CONTENT);
-		#end
-	}
-
-	private function onActivityResult(e:CallBackEvent)
-	{
-		if (e.content != null && e.content.data != null)
-		{
-			var daPath:String = e.content.data.getPath;
-
-			if (daPath.contains('/document/primary:'))
-				daPath = daPath.replace('/document/primary:', Environment.getExternalStorageDirectory() + '/');
-			else if (daPath.contains('/document/'))
-			{
-				final daOldStorageEnter:String = daPath.substring(0, daPath.indexOf(':') + 1);
-				daPath = daPath.replace(daOldStorageEnter, daOldStorageEnter.replace('/document/', '/storage/').replace(':', '/'));
-			}
-
-			if (FileSystem.exists(daPath))
-			{
-				var video:VideoHandler = new VideoHandler();
-				video.finishCallback = function()
-				{
-					CallBack.removeEventListener(CallBackEvent.ACTIVITY_RESULT, onActivityResult);
-					FlxG.resetGame();
-				}
-				video.playVideo(daPath);
-			}
-			else
-			{
-				Toast.makeText(daPath + ": Doesn't exists", Toast.LENGTH_LONG);
-				CallBack.removeEventListener(CallBackEvent.ACTIVITY_RESULT, onActivityResult);
-				FlxG.resetGame();
-			}
-		}
+		Toast.makeText('libavcodec version: ' + Version.getLibavcodecVersion() + '\n'
+			 + 'libavutil version: ' + Version.getLibavutilVersion() + '\n'
+			 + 'libavformat version: ' + Version.getLibavformatVersion() + '\n'
+			 + 'libavfilter version: ' + Version.getLibavfilterVersion() + '\n'
+			 + 'libswresample version: ' + Version.getLibswresampleVersion() + '\n'
+			 + 'libswscale version: ' + Version.getLibswscaleVersion() + '\n', Toast.LENGTH_LONG);
 	}
 }
