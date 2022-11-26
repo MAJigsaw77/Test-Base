@@ -30,7 +30,7 @@ jobs:
         uses: actions/setup-java@main
         with:
           distribution: 'zulu'
-          java-version: '19'
+          java-version: '12'
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@main
