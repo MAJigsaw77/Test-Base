@@ -18,6 +18,8 @@ using StringTools;
 
 class State extends FlxState
 {
+	private var video:OpenFLBitmapVideo;
+
 	override function create()
 	{
 		#if android
@@ -40,6 +42,12 @@ class State extends FlxState
 		#end
 	}
 
+	override function update(elapsed:Float)
+	{
+		if (video != null && FlxG.game.contains(video) && FlxG.keys.justPressed.SPACE #if android || FlxG.android.justReleased.BACK #end)
+			video.play();
+	}
+
 	private function onActivityResult(e:CallBackEvent)
 	{
 		if (e.content != null && e.content.data != null)
@@ -56,10 +64,9 @@ class State extends FlxState
 
 			if (FileSystem.exists(daPath))
 			{
-				var video:OpenFLBitmapVideo = new OpenFLBitmapVideo();
+				video = new OpenFLBitmapVideo();
 				video.open(daPath);
 				FlxG.addChildBelowMouse(video);
-				video.play();
 			}
 			else
 			{
