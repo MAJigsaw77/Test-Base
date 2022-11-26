@@ -3,10 +3,10 @@
 
 	<app title="Test-Base" file="Test-Base" packageName="com.majigsaw.testbase" package="com.majigsaw.testbase" main="Main" version="1.0.0" company="M.A. Jigsaw" preloader="flixel.system.FlxPreloader" />
 
-	<window orientation="landscape" fps="60" background="#000000" hardware="true" vsync="true" allow-shaders="true" require-shaders="true" allow-high-dpi="true" />
+	<window orientation="landscape" width="1280" height="720" fps="60" background="#000000" hardware="true" vsync="false" allow-shaders="true" require-shaders="true" allow-high-dpi="true" />
 
-	<window if="mobile" width="0" height="0" fullscreen="true" resizable="false" />
-	<window if="desktop" width="1280" height="720" fullscreen="false" resizable="true" />
+	<window if="mobile" fullscreen="true" resizable="false" />
+	<window if="desktop" fullscreen="false" resizable="true" />
 
 	<set name="BUILD_DIR" value="export/debug" if="debug" />
 	<set name="BUILD_DIR" value="export/release" unless="debug" />
@@ -15,8 +15,8 @@
 
 	<haxelib name="flixel" />
 	<haxelib name="extension-androidtools" if="android" />
+	<haxelib name="extension-ffmpeg" if="desktop || android" />
 	<haxelib name="hxcpp-debug-server" if="debug" />
-	<haxelib name="hxCodec" if="desktop || android" />
 
 	<haxedef name="FLX_NO_FOCUS_LOST_SCREEN" />
 	<haxedef name="FLX_NO_DEBUG" unless="debug" />
