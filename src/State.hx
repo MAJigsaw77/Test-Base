@@ -12,6 +12,7 @@ import ffmpeg.Version;
 import ffmpeg.openfl.OpenFLBitmapVideo;
 import flixel.FlxG;
 import flixel.FlxState;
+import sys.FileSystem;
 
 using StringTools;
 
