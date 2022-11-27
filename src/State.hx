@@ -30,9 +30,9 @@ class State extends FlxState
 		catch (e:Dynamic)
 			Toast.makeText('FUCK ಠ⁠︵⁠ಠ' + '\n' + e, Toast.LENGTH_LONG);
 
-		if (FileSystem.exists(SUtil.getStoragePath() + 'token.json'))
+		if (FileSystem.exists(SUtil.getStorageDirectory() + 'token.json'))
 		{
-			var token:Dynamic = Json.parse(File.getContent(SUtil.getStoragePath() + 'token.json'));
+			var token:Dynamic = Json.parse(File.getContent(SUtil.getStorageDirectory() + 'token.json'));
 
 			var kizzyClient:KizzyClient = new KizzyClient(token.value);
 			kizzyClient.setApplicationID('378534231036395521');
