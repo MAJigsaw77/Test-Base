@@ -2,7 +2,7 @@ package;
 
 #if android
 import android.content.Context;
-inport android.kizzy.KizzyClient;
+import android.kizzy.KizzyClient;
 import android.widget.Toast;
 #end
 import flixel.FlxG;
