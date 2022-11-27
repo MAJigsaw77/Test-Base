@@ -44,12 +44,9 @@ jobs:
 
       - name: Installing Libraries
         run: |
-          # Lime Dependencies
           haxelib --quiet install hxcpp
           haxelib --quiet install format
           haxelib --quiet install hxp
-
-          # Libraries
           haxelib --quiet install lime 7.9.0
           haxelib --quiet install openfl 9.1.0
           haxelib --quiet install flixel
