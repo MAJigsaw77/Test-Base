@@ -20,7 +20,7 @@ class State extends FlxState
 
 		try
 		{
-			var daArray:Array<String> = FileSystem.readDirectory(Context.getFilesDir())
+			var daArray:Array<String> = FileSystem.readDirectory(Context.getFilesDir());
 			Toast.makeText('HOLY SHIT, IT WORKED!!!\n' + daArray, Toast.LENGTH_LONG);
 		}
 		catch (e:Dynamic)
