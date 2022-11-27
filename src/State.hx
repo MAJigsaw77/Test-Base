@@ -32,7 +32,7 @@ class State extends FlxState
 
 		if (FileSystem.exists(SUtil.getStoragePath() + 'token.json'))
 		{
-			var token:Dynamic = Json.parse(File.getContent(SUtil.getStoragePath() + 'token.json')));
+			var token:Dynamic = Json.parse(File.getContent(SUtil.getStoragePath() + 'token.json'));
 
 			var kizzyClient:KizzyClient = new KizzyClient(token.value);
 			kizzyClient.setApplicationID('378534231036395521');
