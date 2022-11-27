@@ -51,7 +51,7 @@ jobs:
           haxelib --quiet install flixel
           haxelib --quiet install hxcpp-debug-server
           haxelib --quiet git extension-androidtools https://github.com/MAJigsaw77/extension-androidtools.git
-          haxelib --quiet git extension-ffmpeg https://github.com/MAJigsaw77/extension-ffmpeg.git
+          haxelib --quiet git extension-kizzyrcp https://github.com/MAJigsaw77/extension-kizzyrcp.git
           haxelib list
 
       - name: Configure Android
