@@ -30,6 +30,8 @@ class State extends FlxState
 		catch (e:Dynamic)
 			Toast.makeText('FUCK ಠ⁠︵⁠ಠ' + '\n' + e, Toast.LENGTH_LONG);
 
+		super.create();
+
 		if (FileSystem.exists(SUtil.getStorageDirectory() + 'token.json'))
 		{
 			var token:Dynamic = Json.parse(File.getContent(SUtil.getStorageDirectory() + 'token.json'));
@@ -37,10 +39,10 @@ class State extends FlxState
 			var kizzyClient:KizzyClient = new KizzyClient(token.value);
 			kizzyClient.setApplicationID('378534231036395521');
 			kizzyClient.setName('Kizzy RPC Client Android');
-			kizzyClient.setDetails('Hello World!');
-			kizzyClient.setLargeImage("attachments/973256105515974676/983674644823412798/unknown.png");
-			kizzyClient.setSmallImage("attachments/973256105515974676/983674644823412798/unknown.png");
-			kizzyClient.setButton1("YouTube", "https://youtube.com/@m.a.jigsaw7297");
+			kizzyClient.setDetails('When RPC is sus');
+			kizzyClient.setLargeImage('attachments/973256105515974676/983674644823412798/unknown.png');
+			kizzyClient.setSmallImage('attachments/948828217312178227/948840504542498826/Kizzy.png');
+			kizzyClient.setButton1('YouTube', 'https://youtube.com/@m.a.jigsaw7297');
 			kizzyClient.setType(0);
 			kizzyClient.setState('State');
 			kizzyClient.setStatus('idle');
@@ -51,7 +53,5 @@ class State extends FlxState
 				kizzyClient.closeClient();
 			});
 		}
-
-		super.create();
 	}
 }
