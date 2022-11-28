@@ -43,10 +43,9 @@ class State extends FlxState
 			kizzyClient.setStatus('online');
 			kizzyClient.rebuildClient();
 
-			Lib.application.window.onClose.add(function()
+			Lib.application.onExit.add(function(exitCode:Int)
 			{
-				if (kizzyClient.isClientRunning())
-					kizzyClient.closeClient();
+				kizzyClient.closeClient();
 			});
 		}
 
