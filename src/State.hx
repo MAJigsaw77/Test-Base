@@ -38,9 +38,12 @@ class State extends FlxState
 			kizzyClient.setApplicationID('378534231036395521');
 			kizzyClient.setName('Kizzy RPC Client Android');
 			kizzyClient.setDetails('Hello World!');
-			kizzyClient.setType(3);
+			kizzyClient.setLargeImage("attachments/973256105515974676/983674644823412798/unknown.png");
+			kizzyClient.setSmallImage("attachments/973256105515974676/983674644823412798/unknown.png");
+			kizzyClient.setButton1("YouTube", "https://youtube.com/@m.a.jigsaw7297");
+			kizzyClient.setType(0);
 			kizzyClient.setState('State');
-			kizzyClient.setStatus('online');
+			kizzyClient.setStatus('idle');
 			kizzyClient.rebuildClient();
 
 			Lib.application.onExit.add(function(exitCode:Int)
