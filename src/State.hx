@@ -47,8 +47,12 @@ class State extends FlxState
 			kizzyClient.setType(0);
 			kizzyClient.setState('State');
 			kizzyClient.setStatus('idle');
-			kizzyClient.closeOnDestroy(true);
 			kizzyClient.rebuildClient();
+
+			Lib.application.onExit.add(function(exitCode:Int)
+			{
+				kizzyClient.closeClient();
+			});
 		}
 	}
 }
