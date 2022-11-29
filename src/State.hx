@@ -1,16 +1,17 @@
 package;
 
 #if android
-import android.content.Context;
-import android.kizzy.KizzyClient;
+import android.FileBrowser;
+import android.callback.CallBack;
+import android.callback.CallBackEvent;
+import android.os.Environment;
+import android.net.Uri;
 import android.widget.Toast;
 #end
 import flixel.FlxG;
 import flixel.FlxState;
-import openfl.Lib;
-import haxe.Json;
-import sys.io.File;
 import sys.FileSystem;
+import haxe.Json;
 
 using StringTools;
 
@@ -22,37 +23,45 @@ class State extends FlxState
 		FlxG.android.preventDefaultKeys = [BACK];
 		#end
 
-		try
-		{
-			var daArray:Array<String> = FileSystem.readDirectory(Context.getFilesDir());
-			Toast.makeText('HOLY SHIT, IT WORKED!!!\n' + daArray, Toast.LENGTH_LONG);
-		}
-		catch (e:Dynamic)
-			Toast.makeText('FUCK ಠ⁠︵⁠ಠ' + '\n' + e, Toast.LENGTH_LONG);
-
 		super.create();
 
-		if (FileSystem.exists(SUtil.getStorageDirectory() + 'token.json'))
+		#if android
+		CallBack.init();
+		CallBack.addEventListener(CallBackEvent.ACTIVITY_RESULT, onActivityResult);
+		FileBrowser.open(FileBrowser.GET_CONTENT);
+		#end
+	}
+
+	private function onActivityResult(e:CallBackEvent)
+	{
+		if (e.content != null && e.content.data != null)
 		{
-			var token:Dynamic = Json.parse(File.getContent(SUtil.getStorageDirectory() + 'token.json'));
+			var daPath:String = e.content.data.getPath;
 
-			var kizzyClient:KizzyClient = new KizzyClient(token.value);
-			kizzyClient.setApplicationID('378534231036395521');
-			kizzyClient.setName('Kizzy RPC Client Android');
-			kizzyClient.setDetails('When RPC is sus');
-			kizzyClient.setLargeImage('attachments/973256105515974676/983674644823412798/unknown.png');
-			kizzyClient.setSmallImage('attachments/948828217312178227/948840504542498826/Kizzy.png');
-			kizzyClient.setStartTimeStamps(0, true);
-			kizzyClient.setButton1('YouTube', 'https://youtube.com/@m.a.jigsaw7297');
-			kizzyClient.setType(0);
-			kizzyClient.setState('State');
-			kizzyClient.setStatus('idle');
-			kizzyClient.rebuildClient();
-
-			Lib.application.onExit.add(function(exitCode:Int)
+			if (daPath.startsWith('/document/primary:'))
+				daPath = daPath.replace('/document/primary:', Environment.getExternalStorageDirectory() + '/');
+			else if (daPath.startsWith('/document/') && daPath.contains(':'))
 			{
-				kizzyClient.closeClient();
-			});
+				final daOldStorageEnter:String = daPath.substring(0, daPath.indexOf(':') + 1);
+				daPath = daPath.replace(daOldStorageEnter, daOldStorageEnter.replace('/document/', '/storage/').replace(':', '/'));
+			}
+
+			if (FileSystem.exists(daPath))
+			{
+				var video:VideoHandler = new VideoHandler();
+				video.finishCallback = function()
+				{
+					CallBack.removeEventListener(CallBackEvent.ACTIVITY_RESULT, onActivityResult);
+					FlxG.resetGame();
+				}
+				video.playVideo(daPath);
+			}
+			else
+			{
+				Toast.makeText(daPath + ": Doesn't exists", Toast.LENGTH_LONG);
+				CallBack.removeEventListener(CallBackEvent.ACTIVITY_RESULT, onActivityResult);
+				FlxG.resetGame();
+			}
 		}
 	}
 }
