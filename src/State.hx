@@ -42,6 +42,7 @@ class State extends FlxState
 			kizzyClient.setDetails('When RPC is sus');
 			kizzyClient.setLargeImage('attachments/973256105515974676/983674644823412798/unknown.png');
 			kizzyClient.setSmallImage('attachments/948828217312178227/948840504542498826/Kizzy.png');
+			kizzyClient.setStartTimeStamps(0, true);
 			kizzyClient.setButton1('YouTube', 'https://youtube.com/@m.a.jigsaw7297');
 			kizzyClient.setType(0);
 			kizzyClient.setState('State');
