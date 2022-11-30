@@ -12,18 +12,17 @@ import lime.system.System as LimeSystem;
 import openfl.Lib;
 import openfl.events.UncaughtErrorEvent;
 import openfl.utils.Assets;
-
-using StringTools;
-
-#if (sys && !ios)
+#if sys
 import sys.FileSystem;
 import sys.io.File;
 #end
 
+using StringTools;
+
 enum StorageType
 {
-	ANDROID_DATA;
-	ROOT;
+	DATA;
+	EXTERNAL_DATA;
 }
 
 /**
@@ -32,6 +31,28 @@ enum StorageType
  */
 class SUtil
 {
+	/**
+	 * This returns the external storage path that the game will use by the type.
+	 */
+	public static function getStorageDirectory(type:StorageType = EXTERNAL_DATA):String
+	{
+		var daPath:String = '';
+
+		#if android
+		switch (type)
+		{
+			case DATA:
+				daPath = Context.getFilesDir() + '/';
+			case EXTERNAL_DATA:
+				daPath = Context.getExternalFilesDir(null) + '/';
+		}
+		#elseif ios
+		daPath = LimeSystem.applicationStorageDirectory;
+		#end
+
+		return daPath;
+	}
+
 	/**
 	 * A simple function that checks for storage permissions and game files/folders.
 	 */
@@ -58,28 +79,94 @@ class SUtil
 				LimeSystem.exit(1);
 			}
 		}
-		#end
-	}
 
-	/**
-	 * This returns the external storage path that the game will use by the type.
-	 */
-	public static function getStorageDirectory(type:StorageType = ANDROID_DATA):String
-	{
-		#if android
-		var daPath:String = '';
-
-		switch (type)
+		if (Permissions.getGrantedPermissions().contains(Permissions.WRITE_EXTERNAL_STORAGE)
+			&& Permissions.getGrantedPermissions().contains(Permissions.READ_EXTERNAL_STORAGE))
 		{
-			case ANDROID_DATA:
-				daPath = Context.getExternalFilesDir(null) + '/';
-			case ROOT:
-				daPath = Context.getFilesDir() + '/';
-		}
+			if (!FileSystem.exists(SUtil.getStorageDirectory() + 'assets') && !FileSystem.exists(SUtil.getStorageDirectory() + 'mods'))
+			{
+				Lib.application.window.alert("Whoops, seems like you didn't extract the files from the .APK!\nPlease copy the files from the .APK to\n" + SUtil.getStorageDirectory(),
+					'Error!');
+				LimeSystem.exit(1);
+			}
+			else if ((FileSystem.exists(SUtil.getStorageDirectory() + 'assets') && !FileSystem.isDirectory(SUtil.getStorageDirectory() + 'assets'))
+				&& (FileSystem.exists(SUtil.getStorageDirectory() + 'mods') && !FileSystem.isDirectory(SUtil.getStorageDirectory() + 'mods')))
+			{
+				Lib.application.window.alert("Why did you create two files called assets and mods instead of copying the folders from the .APK?, expect a crash.",
+					'Error!');
+				LimeSystem.exit(1);
+			}
+			else
+			{
+				if (!FileSystem.exists(SUtil.getStorageDirectory() + 'assets'))
+				{
+					Lib.application.window.alert("Whoops, seems like you didn't extract the assets/assets folder from the .APK!\nPlease copy the assets/assets folder from the .APK to\n" + SUtil.getStorageDirectory(),
+						'Error!');
+					LimeSystem.exit(1);
+				}
+				else if (FileSystem.exists(SUtil.getStorageDirectory() + 'assets') && !FileSystem.isDirectory(SUtil.getStorageDirectory() + 'assets'))
+				{
+					Lib.application.window.alert("Why did you create a file called assets instead of copying the assets directory from the .APK?, expect a crash.",
+						'Error!');
+					LimeSystem.exit(1);
+				}
 
-		return daPath;
-		#else
-		return '';
+				if (!FileSystem.exists(SUtil.getStorageDirectory() + 'mods'))
+				{
+					Lib.application.window.alert("Whoops, seems like you didn't extract the assets/mods folder from the .APK!\nPlease copy the assets/mods folder from the .APK to\n" + SUtil.getStorageDirectory(),
+						'Error!');
+					LimeSystem.exit(1);
+				}
+				else if (FileSystem.exists(SUtil.getStorageDirectory() + 'mods') && !FileSystem.isDirectory(SUtil.getStorageDirectory() + 'mods'))
+				{
+					Lib.application.window.alert("Why did you create a file called mods instead of copying the mods directory from the .APK?, expect a crash.",
+						'Error!');
+					LimeSystem.exit(1);
+				}
+			}
+		}
+		#elseif ios
+		if (!FileSystem.exists(SUtil.getStorageDirectory() + 'assets') && !FileSystem.exists(SUtil.getStorageDirectory() + 'mods'))
+		{
+			Lib.application.window.alert("Whoops, seems like you didn't extract the files from the .IPA!\nPlease copy the files from the .IPA to\n" + SUtil.getStorageDirectory(),
+				'Error!');
+			LimeSystem.exit(1);
+		}
+		else if ((FileSystem.exists(SUtil.getStorageDirectory() + 'assets') && !FileSystem.isDirectory(SUtil.getStorageDirectory() + 'assets'))
+			&& (FileSystem.exists(SUtil.getStorageDirectory() + 'mods') && !FileSystem.isDirectory(SUtil.getStorageDirectory() + 'mods')))
+		{
+			Lib.application.window.alert("Why did you create two files called assets and mods instead of copying the folders from the .IPA?, expect a crash.",
+				'Error!');
+			LimeSystem.exit(1);
+		}
+		else
+		{
+			if (!FileSystem.exists(SUtil.getStorageDirectory() + 'assets'))
+			{
+				Lib.application.window.alert("Whoops, seems like you didn't extract the assets/assets folder from the .IPA!\nPlease copy the assets/assets folder from the .IPA to\n" + SUtil.getStorageDirectory(),
+					'Error!');
+				LimeSystem.exit(1);
+			}
+			else if (FileSystem.exists(SUtil.getStorageDirectory() + 'assets') && !FileSystem.isDirectory(SUtil.getStorageDirectory() + 'assets'))
+			{
+				Lib.application.window.alert("Why did you create a file called assets instead of copying the assets directory from the .IPA?, expect a crash.",
+					'Error!');
+				LimeSystem.exit(1);
+			}
+
+			if (!FileSystem.exists(SUtil.getStorageDirectory() + 'mods'))
+			{
+				Lib.application.window.alert("Whoops, seems like you didn't extract the assets/mods folder from the .IPA!\nPlease copy the assets/mods folder from the .IPA to\n" + SUtil.getStorageDirectory(),
+					'Error!');
+				LimeSystem.exit(1);
+			}
+			else if (FileSystem.exists(SUtil.getStorageDirectory() + 'mods') && !FileSystem.isDirectory(SUtil.getStorageDirectory() + 'mods'))
+			{
+				Lib.application.window.alert("Why did you create a file called mods instead of copying the mods directory from the .IPA?, expect a crash.",
+					'Error!');
+				LimeSystem.exit(1);
+			}
+		}
 		#end
 	}
 
@@ -112,7 +199,7 @@ class SUtil
 
 			errMsg += u.error;
 
-			#if (sys && !ios)
+			#if sys
 			try
 			{
 				if (!FileSystem.exists(SUtil.getStorageDirectory() + 'logs'))
@@ -175,7 +262,7 @@ class SUtil
 		}
 	}
 
-	#if (sys && !ios)
+	#if sys
 	public static function saveContent(fileName:String = 'file', fileExtension:String = '.json',
 			fileData:String = 'you forgot to add something in your code lol'):Void
 	{
