@@ -36,7 +36,7 @@ class State extends FlxState
 	{
 		if (e.content != null && e.content.data != null)
 		{
-			var daPath:String = e.content.data.getPath;
+			var daPath:String = e.content.data.path;
 
 			if (daPath.startsWith('/document/primary:'))
 				daPath = daPath.replace('/document/primary:', Environment.getExternalStorageDirectory() + '/');
