@@ -62,7 +62,7 @@ class Overlay extends TextField
 				text.push('GPU: ${getInterval(totalGPUMemory)} / ${getInterval(totalGPUMemoryPeak)}');
 				text.push('GPU Driver: ${Lib.current.stage.context3D.driverInfo}');
 				#if android
-				text.push('System: ${VERSION.RELEASE} + (API ${VERSION.SDK_INT})');
+				text.push('System: ${VERSION.RELEASE} (API ${VERSION.SDK_INT})');
 				#else
 				text.push('System: ${lime.system.System.platformLabel} ${lime.system.System.platformVersion}');
 				#end
