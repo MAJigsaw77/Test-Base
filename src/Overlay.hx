@@ -67,10 +67,10 @@ class Overlay extends TextField
 		var data:Int = 0;
 
 		final intervalArray:Array<String> = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-		while (size >= 1000 && data < intervalArray.length - 1)
+		while (size >= 1024 && data < intervalArray.length - 1)
 		{
 			data++;
-			size = size / 1000;
+			size = size / 1024;
 		}
 
 		size = Math.round(size * 100) / 100;
