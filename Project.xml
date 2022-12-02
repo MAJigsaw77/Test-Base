@@ -49,6 +49,6 @@
 		<dependency name="WebKit.framework" />
 	</section>
 
-	<icon path="icon.png" />
+	<icon path="res/icon.png" />
 
 </project>
