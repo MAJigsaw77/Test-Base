@@ -19,6 +19,6 @@ class Main extends Sprite
 		final framerate:Int = Std.int(Lib.current.stage.frameRate);
 
 		addChild(new FlxGame(width, height, State, framerate, framerate));
-		addChild(new Overlay(10, 10, 0xFFFFFF));
+		addChild(new Overlay(10, 10));
 	}
 }
