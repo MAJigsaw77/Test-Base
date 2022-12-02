@@ -1,5 +1,8 @@
 package;
 
+#if android
+import android.os.Build.VERSION;
+#end
 import haxe.Timer;
 import openfl.Lib;
 import openfl.events.Event;
@@ -58,7 +61,11 @@ class Overlay extends TextField
 				text.push('RAM: ${getInterval(totalMemory)} / ${getInterval(totalMemoryPeak)}');
 				text.push('GPU: ${getInterval(totalGPUMemory)} / ${getInterval(totalGPUMemoryPeak)}');
 				text.push('GPU Driver: ${Lib.current.stage.context3D.driverInfo}');
-				text.push('System: ${lime.system.System.platformLabel}' #if !android + lime.system.System.platformVersion #end);
+				#if android
+				text.push('System: ${VERSION.RELEASE} + (API ${VERSION.SDK_INT})');
+				#else
+				text.push('System: ${lime.system.System.platformLabel} ${lime.system.System.platformVersion}');
+				#end
 				this.text = text.join('\n') + '\n';
 			}
 		});
