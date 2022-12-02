@@ -57,7 +57,7 @@ class Overlay extends TextField
 				text.push('FPS: ${currentFrames}');
 				text.push('RAM: ${getInterval(totalMemory)} / ${getInterval(totalMemoryPeak)}');
 				text.push('GPU: ${getInterval(totalGPUMemory)} / ${getInterval(totalGPUMemoryPeak)}');
-				this.text = text.join('\n');
+				this.text = text.join('\n') + '\n';
 			}
 		});
 	}
