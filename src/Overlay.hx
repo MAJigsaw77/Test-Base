@@ -13,7 +13,7 @@ class Overlay extends TextField
 	private var totalMemoryPeak:Float = 0;
 	private var totalGPUMemoryPeak:Float = 0;
 
-	public function new(x:Float, y:Float, color:Int)
+	public function new(x:Float, y:Float)
 	{
 		super();
 
@@ -22,7 +22,7 @@ class Overlay extends TextField
 		this.autoSize = LEFT;
 		this.selectable = false;
 		this.mouseEnabled = false;
-		this.defaultTextFormat = new TextFormat('_sans', 14, 0xFFFFFF);
+		this.defaultTextFormat = new TextFormat('_sans', 12, 0xFFFFFF);
 
 		addEventListener(Event.ENTER_FRAME, function(e:Event)
 		{
@@ -57,7 +57,9 @@ class Overlay extends TextField
 				text.push('FPS: ${currentFrames}');
 				text.push('RAM: ${getInterval(totalMemory)} / ${getInterval(totalMemoryPeak)}');
 				text.push('GPU: ${getInterval(totalGPUMemory)} / ${getInterval(totalGPUMemoryPeak)}');
-				this.text = text.join('\n') + '\n';
+				text.push('GPU Driver: ${getInterval(totalGPUMemory)} / ${getInterval(totalGPUMemoryPeak)}');
+				text.push('System: ${lime.system.System.platformLabel}' #if !android + lime.system.System.platformVersion #end);
+				this.text = text.join('\n');
 			}
 		});
 	}
