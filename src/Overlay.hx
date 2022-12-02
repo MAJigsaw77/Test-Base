@@ -22,7 +22,7 @@ class Overlay extends TextField
 		this.autoSize = LEFT;
 		this.selectable = false;
 		this.mouseEnabled = false;
-		this.defaultTextFormat = new TextFormat('_sans', 12, 0xFFFFFF);
+		this.defaultTextFormat = new TextFormat('_sans', 15, 0xFFFFFF);
 
 		addEventListener(Event.ENTER_FRAME, function(e:Event)
 		{
@@ -57,9 +57,9 @@ class Overlay extends TextField
 				text.push('FPS: ${currentFrames}');
 				text.push('RAM: ${getInterval(totalMemory)} / ${getInterval(totalMemoryPeak)}');
 				text.push('GPU: ${getInterval(totalGPUMemory)} / ${getInterval(totalGPUMemoryPeak)}');
-				text.push('GPU Driver: ${getInterval(totalGPUMemory)} / ${getInterval(totalGPUMemoryPeak)}');
+				text.push('GPU Driver: ${Lib.current.stage.context3D.driverInfo}');
 				text.push('System: ${lime.system.System.platformLabel}' #if !android + lime.system.System.platformVersion #end);
-				this.text = text.join('\n');
+				this.text = text.join('\n') + '\n';
 			}
 		});
 	}
