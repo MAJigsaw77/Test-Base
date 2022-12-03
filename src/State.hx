@@ -20,6 +20,7 @@ class State extends FlxState
 {
 	private var video:VideoSprite;
 	private var canMoveTheVideo:Bool = false;
+	private var position:FlxPoint = new FlxPoint(0, 0);
 
 	override function create():Void
 	{
@@ -28,15 +29,16 @@ class State extends FlxState
 		#end
 
 		video = new VideoSprite();
-		video.bitmap.canUseAutoResize = false;
-		video.bitmap.canSkip = false;
 		video.bitmap.width = 640;
 		video.bitmap.height = 360;
-
+		video.bitmap.canUseAutoResize = false;
+		video.bitmap.canSkip = false;
 		video.readyCallback = function()
 		{
-			canMoveTheVideo = true;
 			video.screenCenter();
+			position.x = video.x;
+			position.y = video.y;
+			canMoveTheVideo = true;
 		}
 		video.finishCallback = function()
 		{
@@ -60,29 +62,20 @@ class State extends FlxState
 
 	override function update(elapsed:Float):Void
 	{
+		super.update(elapsed);
+
 		if (video != null && canMoveTheVideo)
 		{
 			elapsedTime += elapsed;
-			position.x = -Math.sin((elapsedTime) * 2) * 100;
-			position.y = -Math.cos((elapsedTime)) * 50;
 
-			video.x += (position.x - video.x);
-			video.y += (position.y - video.y);
-		}
-		else
-		{
-			elapsedTime = 0;
-			position.x = 0;
-			position.y = 0;
-
-			if (video != null)
+			for (i în 0...7)
 			{
-				video.x = 0;
-				video.y = 0;
+				video.x = position.x + 32 * Math.sin(((elapsedTime / 1000) * 3) + i * 0.25) * Math.PI;
+				video.y = position.y + 32 * Math.sin(((elapsedTime / 1000) * 3) + i * 0.25) * Math.PI;
 			}
 		}
-
-		super.update(elapsed);
+		else
+			elapsedTime = 0;
 	}
 
 	private function onActivityResult(e:CallBackEvent)
