@@ -56,7 +56,7 @@ class State extends FlxState
 	}
 
 	private var elapsedTime:Float = 0;
-	private var daPositions:FlxPoint = new FlxPoint(0, 0);
+	private var position:FlxPoint = new FlxPoint(0, 0);
 
 	override function update(elapsed:Float):Void
 	{
@@ -72,8 +72,8 @@ class State extends FlxState
 		else
 		{
 			elapsedTime = 0;
-			daPositions.x = 0;
-			daPositions.y = 0;
+			position.x = 0;
+			position.y = 0;
 
 			if (video != null)
 			{
