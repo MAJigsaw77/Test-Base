@@ -18,9 +18,8 @@ using StringTools;
 
 class State extends FlxState
 {
-	private var video:VideoSprite;
+	private var video:VideoHandler;
 	private var canMoveTheVideo:Bool = false;
-	private var position:FlxPoint = new FlxPoint(0, 0);
 
 	override function create():Void
 	{
@@ -28,16 +27,13 @@ class State extends FlxState
 		FlxG.android.preventDefaultKeys = [BACK];
 		#end
 
-		video = new VideoSprite();
-		video.bitmap.width = 640;
-		video.bitmap.height = 360;
-		video.bitmap.canUseAutoResize = false;
-		video.bitmap.canSkip = false;
+		video = new VideoHandler();
+		video.canUseAutoResize = false;
+		video.canSkip = false;
+		video.width = 640;
+		video.height = 360;
 		video.readyCallback = function()
 		{
-			video.screenCenter();
-			position.x = video.x;
-			position.y = video.y;
 			canMoveTheVideo = true;
 		}
 		video.finishCallback = function()
@@ -69,8 +65,8 @@ class State extends FlxState
 
 			for (i in 0...7)
 			{
-				video.x = position.x + 32 * Math.cos(((elapsedTime / 1000) * 3) + i * 0.25) * Math.PI;
-				video.y = position.y + 32 * Math.sin(((elapsedTime / 1000) * 3) + i * 0.25) * Math.PI;
+				video.x = Std.int(FlxG.width / 2) + 32 * Math.cos(((elapsedTime / 1000) * 3) + i * 0.25) * Math.PI;
+				video.y = Std.int(FlxG.height / 2) + 32 * Math.sin(((elapsedTime / 1000) * 3) + i * 0.25) * Math.PI;
 			}
 		}
 		else
