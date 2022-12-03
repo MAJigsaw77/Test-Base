@@ -58,7 +58,6 @@ class State extends FlxState
 	}
 
 	private var elapsedTime:Float = 0;
-	private var position:FlxPoint = new FlxPoint(0, 0);
 
 	override function update(elapsed:Float):Void
 	{
