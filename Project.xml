@@ -3,13 +3,10 @@
 
 	<app title="Test-Base" file="Test-Base" package="com.majigsaw.testbase" main="Main" version="1.0.0" company="M.A. Jigsaw" preloader="flixel.system.FlxPreloader" />
 
-	<window orientation="landscape" width="1280" height="720" fps="60" background="#000000" hardware="true" vsync="false" allow-shaders="true" require-shaders="true" allow-high-dpi="true" />
+	<window orientation="landscape" width="1280" height="720" fps="60" background="#808080" hardware="true" vsync="false" allow-shaders="true" require-shaders="true" allow-high-dpi="true" />
 
 	<window if="mobile" fullscreen="true" resizable="false" />
 	<window if="desktop" fullscreen="false" resizable="true" />
-
-	<architecture exclude="arm64" unless="HXCPP_ARM64" />
-	<architecture exclude="armv7" unless="HXCPP_ARMV7" />
 
 	<set name="BUILD_DIR" value="export/debug" if="debug" />
 	<set name="BUILD_DIR" value="export/release" unless="debug" />
