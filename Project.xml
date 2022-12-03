@@ -10,8 +10,6 @@
 
 	<architecture exclude="arm64" unless="HXCPP_ARM64" />
 	<architecture exclude="armv7" unless="HXCPP_ARMV7" />
-	<architecture exclude="x86" unless="HXCPP_X86" />
-	<architecture exclude="x86_64" unless="HXCPP_X86_64" />
 
 	<set name="BUILD_DIR" value="export/debug" if="debug" />
 	<set name="BUILD_DIR" value="export/release" unless="debug" />
