@@ -68,7 +68,7 @@ class State extends FlxState
 		{
 			elapsedTime += elapsed;
 
-			for (i în 0...7)
+			for (i in 0...7)
 			{
 				video.x = position.x + 32 * Math.cos(((elapsedTime / 1000) * 3) + i * 0.25) * Math.PI;
 				video.y = position.y + 32 * Math.sin(((elapsedTime / 1000) * 3) + i * 0.25) * Math.PI;
