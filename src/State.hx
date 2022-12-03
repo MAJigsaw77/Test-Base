@@ -10,6 +10,7 @@ import android.widget.Toast;
 #end
 import flixel.FlxG;
 import flixel.FlxState;
+import flixel.math.FlxPoint;
 import sys.FileSystem;
 import haxe.Json;
 
@@ -17,11 +18,33 @@ using StringTools;
 
 class State extends FlxState
 {
-	override function create()
+	private var video:VideoSprite;
+	private var canMoveTheVideo:Bool = false;
+
+	override function create():Void
 	{
 		#if android
 		FlxG.android.preventDefaultKeys = [BACK];
 		#end
+
+		video = new VideoSprite();
+		video.bitmap.canUseAutoResize = false;
+		video.bitmap.canSkip = false;
+		video.bitmap.width = 640;
+		video.bitmap.height = 360;
+
+		video.readyCallback = function()
+		{
+			canMoveTheVideo = true;
+			video.screenCenter();
+		}
+		video.finishCallback = function()
+		{
+			if (CallBack.hasEventListener(CallBackEvent.ACTIVITY_RESULT))
+				CallBack.removeEventListener(CallBackEvent.ACTIVITY_RESULT, onActivityResult);
+
+			FlxG.resetGame();
+		}
 
 		super.create();
 
@@ -30,6 +53,36 @@ class State extends FlxState
 		CallBack.addEventListener(CallBackEvent.ACTIVITY_RESULT, onActivityResult);
 		FileBrowser.open(FileBrowser.GET_CONTENT);
 		#end
+	}
+
+	private var elapsedTime:Float = 0;
+	private var daPositions:FlxPoint = new FlxPoint(0, 0);
+
+	override function update(elapsed:Float):Void
+	{
+		if (video != null && canMoveTheVideo)
+		{
+			elapsedTime += elapsed;
+			position.x = -Math.sin((elapsedTime) * 2) * 100;
+			position.y = -Math.cos((elapsedTime)) * 50;
+
+			video.x += (position.x - video.x);
+			video.y += (position.y - video.y);
+		}
+		else
+		{
+			elapsedTime = 0;
+			daPositions.x = 0;
+			daPositions.y = 0;
+
+			if (video != null)
+			{
+				video.x = 0;
+				video.y = 0;
+			}
+		}
+
+		super.update(elapsed);
 	}
 
 	private function onActivityResult(e:CallBackEvent)
@@ -48,13 +101,8 @@ class State extends FlxState
 
 			if (FileSystem.exists(daPath))
 			{
-				var video:VideoHandler = new VideoHandler();
-				video.finishCallback = function()
-				{
-					CallBack.removeEventListener(CallBackEvent.ACTIVITY_RESULT, onActivityResult);
-					FlxG.resetGame();
-				}
-				video.playVideo(daPath);
+				if (video != null)
+					video.playVideo(daPath, true);
 			}
 			else
 			{
