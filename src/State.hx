@@ -30,8 +30,8 @@ class State extends FlxState
 		video = new VideoHandler();
 		video.canUseAutoResize = false;
 		video.canSkip = false;
-		video.width = 640;
-		video.height = 360;
+		video.set_width(640);
+		video.set_height(360);
 		video.readyCallback = function()
 		{
 			canMoveTheVideo = true;
