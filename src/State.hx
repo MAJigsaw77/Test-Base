@@ -50,9 +50,8 @@ class State extends FlxState
 			{
 				var video:VideoHandler = new VideoHandler();
 				video.canUseAutoResize = false;
-				video.canSkip = false;
-				video.set_width(640);
-				video.set_height(360);
+				video.width = 640;
+				video.height = 360;
 				video.finishCallback = function()
 				{
 					CallBack.removeEventListener(CallBackEvent.ACTIVITY_RESULT, onActivityResult);
