@@ -10,7 +10,6 @@ import android.widget.Toast;
 #end
 import flixel.FlxG;
 import flixel.FlxState;
-import flixel.math.FlxPoint;
 import sys.FileSystem;
 import haxe.Json;
 
@@ -18,31 +17,11 @@ using StringTools;
 
 class State extends FlxState
 {
-	private var video:VideoHandler;
-	private var canMoveTheVideo:Bool = false;
-
 	override function create():Void
 	{
 		#if android
 		FlxG.android.preventDefaultKeys = [BACK];
 		#end
-
-		video = new VideoHandler();
-		video.canUseAutoResize = false;
-		video.canSkip = false;
-		video.set_width(640);
-		video.set_height(360);
-		video.readyCallback = function()
-		{
-			canMoveTheVideo = true;
-		}
-		video.finishCallback = function()
-		{
-			if (CallBack.hasEventListener(CallBackEvent.ACTIVITY_RESULT))
-				CallBack.removeEventListener(CallBackEvent.ACTIVITY_RESULT, onActivityResult);
-
-			FlxG.resetGame();
-		}
 
 		super.create();
 
@@ -53,27 +32,7 @@ class State extends FlxState
 		#end
 	}
 
-	private var elapsedTime:Float = 0;
-
-	override function update(elapsed:Float):Void
-	{
-		super.update(elapsed);
-
-		if (video != null && canMoveTheVideo)
-		{
-			elapsedTime += elapsed;
-
-			for (i in 0...7)
-			{
-				video.x = Std.int(FlxG.width / 2) + 32 * Math.cos(((elapsedTime / 1000) * 3) + i * 0.25) * Math.PI;
-				video.y = Std.int(FlxG.height / 2) + 32 * Math.sin(((elapsedTime / 1000) * 3) + i * 0.25) * Math.PI;
-			}
-		}
-		else
-			elapsedTime = 0;
-	}
-
-	private function onActivityResult(e:CallBackEvent)
+	private function onActivityResult(e:CallBackEvent):Void
 	{
 		if (e.content != null && e.content.data != null)
 		{
@@ -89,8 +48,17 @@ class State extends FlxState
 
 			if (FileSystem.exists(daPath))
 			{
-				if (video != null)
-					video.playVideo(daPath, true);
+				var video:VideoHandler = new VideoHandler();
+				video.canUseAutoResize = false;
+				video.canSkip = false;
+				video.set_width(640);
+				video.set_height(360);
+				video.finishCallback = function()
+				{
+					CallBack.removeEventListener(CallBackEvent.ACTIVITY_RESULT, onActivityResult);
+					FlxG.resetGame();
+				}
+				video.playVideo(daPath);
 			}
 			else
 			{
