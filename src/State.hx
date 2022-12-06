@@ -48,13 +48,18 @@ class State extends FlxState
 
 			if (FileSystem.exists(daPath))
 			{
-				var video:VideoHandler = new VideoHandler();
-				video.finishCallback = function()
+				try
 				{
-					CallBack.removeEventListener(CallBackEvent.ACTIVITY_RESULT, onActivityResult);
-					FlxG.resetGame();
+					var video:VideoHandler = new VideoHandler();
+					video.finishCallback = function()
+					{
+						CallBack.removeEventListener(CallBackEvent.ACTIVITY_RESULT, onActivityResult);
+						FlxG.resetGame();
+					}
+					video.playVideo(daPath);
 				}
-				video.playVideo(daPath);
+				catch (e:Dynamic)
+					Toast.makeText(e, Toast.LENGTH_LONG);
 			}
 			else
 			{
