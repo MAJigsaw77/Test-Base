@@ -10,6 +10,12 @@ import openfl.system.System;
 import openfl.text.TextField;
 import openfl.text.TextFormat;
 
+enum GPUInfo
+{
+	RENDERER;
+	SHADING_LANGUAGE_VERSION;
+}
+
 class Overlay extends TextField
 {
 	private var times:Array<Float> = [];
@@ -60,7 +66,8 @@ class Overlay extends TextField
 				text.push('FPS: ${currentFrames}');
 				text.push('RAM: ${getInterval(totalMemory)} / ${getInterval(totalMemoryPeak)}');
 				text.push('GPU: ${getInterval(totalGPUMemory)} / ${getInterval(totalGPUMemoryPeak)}');
-				text.push('GPU Driver: ${Lib.current.stage.context3D.driverInfo}');
+				text.push('GL Renderer: ${getInfo(RENDERER)}');
+				text.push('GL Shading Version: ${getInfo(SHADING_LANGUAGE_VERSION)}');
 				#if android
 				text.push('System: Android ${VERSION.RELEASE} (API ${VERSION.SDK_INT})');
 				#else
@@ -85,4 +92,21 @@ class Overlay extends TextField
 		size = Math.round(size * 100) / 100;
 		return size + ' ' + intervalArray[data];
 	}
+
+	private function getInfo(info:GPUInfo):String
+	{
+		@:privateAccess
+		var gl:Dynamic = Lib.current.stage.context3D.gl;
+
+		switch (info)
+		{
+			case RENDERER:
+				return Std.string(gl.getParameter(gl.RENDERER));
+			case SHADING_LANGUAGE_VERSION:
+				return Std.string(gl.getParameter(gl.SHADING_LANGUAGE_VERSION));
+		}
+
+		return null;
+	}
 }
+
