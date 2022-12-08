@@ -20,7 +20,6 @@ class Overlay extends TextField
 {
 	private var times:Array<Float> = [];
 	private var totalMemoryPeak:Float = 0;
-	private var totalGPUMemoryPeak:Float = 0;
 
 	public function new(x:Float, y:Float)
 	{
@@ -56,16 +55,11 @@ class Overlay extends TextField
 			if (totalMemory > totalMemoryPeak)
 				totalMemoryPeak = totalMemory;
 
-			var totalGPUMemory:Float = Lib.current.stage.context3D.totalGPUMemory;
-			if (totalGPUMemory > totalGPUMemoryPeak)
-				totalGPUMemoryPeak = totalGPUMemory;
-
 			if (visible)
 			{
 				var text:Array<String> = [];
 				text.push('FPS: ${currentFrames}');
-				text.push('RAM: ${getInterval(totalMemory)} / ${getInterval(totalMemoryPeak)}');
-				text.push('GPU: ${getInterval(totalGPUMemory)} / ${getInterval(totalGPUMemoryPeak)}');
+				text.push('Memory: ${getInterval(totalMemory)} / ${getInterval(totalMemoryPeak)}');
 				text.push('GL Renderer: ${getInfo(RENDERER)}');
 				text.push('GL Shading Version: ${getInfo(SHADING_LANGUAGE_VERSION)}');
 				#if android
