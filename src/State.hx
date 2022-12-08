@@ -10,8 +10,6 @@ import android.widget.Toast;
 #end
 import flixel.FlxG;
 import flixel.FlxState;
-import sys.FileSystem;
-import haxe.Json;
 
 using StringTools;
 
@@ -28,6 +26,7 @@ class State extends FlxState
 		#if android
 		CallBack.init();
 		CallBack.addEventListener(CallBackEvent.ACTIVITY_RESULT, onActivityResult);
+
 		FileBrowser.open(FileBrowser.GET_CONTENT);
 		#end
 	}
@@ -46,27 +45,13 @@ class State extends FlxState
 				daPath = daPath.replace(daOldStorageEnter, daOldStorageEnter.replace('/document/', '/storage/').replace(':', '/'));
 			}
 
-			if (FileSystem.exists(daPath))
+			var video:VideoHandler = new VideoHandler();
+			video.finishCallback = function()
 			{
-				try
-				{
-					var video:VideoHandler = new VideoHandler();
-					video.finishCallback = function()
-					{
-						CallBack.removeEventListener(CallBackEvent.ACTIVITY_RESULT, onActivityResult);
-						FlxG.resetGame();
-					}
-					video.playVideo(daPath);
-				}
-				catch (e:Dynamic)
-					Toast.makeText(e, Toast.LENGTH_LONG);
-			}
-			else
-			{
-				Toast.makeText(daPath + ": Doesn't exists", Toast.LENGTH_LONG);
 				CallBack.removeEventListener(CallBackEvent.ACTIVITY_RESULT, onActivityResult);
 				FlxG.resetGame();
 			}
+			video.playVideo(daPath);
 		}
 	}
 }
