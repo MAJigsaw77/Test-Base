@@ -15,6 +15,8 @@ import openfl.utils.Assets;
 #if sys
 import sys.FileSystem;
 import sys.io.File;
+#else
+import haxe.Log;
 #end
 
 using StringTools;
@@ -83,33 +85,36 @@ class SUtil
 	}
 
 	/**
-	 * Uncaught error handler, original made by: sqirra-rng
+	 * Uncaught error handler, original made by: Sqirra-RNG and YoshiCrafter29
 	 */
 	public static function uncaughtErrorHandler():Void
 	{
-		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, function(u:UncaughtErrorEvent)
+		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, function(e:UncaughtErrorEvent)
 		{
-			var callStack:Array<StackItem> = CallStack.exceptionStack(true);
-			var errMsg:String = '';
+			var msg:String = '${e.error}\n';
 
-			for (stackItem in callStack)
+			for (stackItem in CallStack.exceptionStack(true))
 			{
 				switch (stackItem)
 				{
 					case CFunction:
-						errMsg += 'a C function\n';
+						msg += 'Non-Haxe (C) Function';
 					case Module(m):
-						errMsg += 'module ( ' + m + ')\n';
+						msg += 'Module ($m)';
 					case FilePos(s, file, line, column):
-						errMsg += file + ' (line ' + line + ')\n';
-					case Method(cname, meth):
-						errMsg += cname == null ? "<unknown>" : cname + '.' + meth + '\n';
-					case LocalFunction(n):
-						errMsg += 'local function ' + n + '\n';
+						msg += '$file (line $line)';
+					case Method(classname, method):
+						msg += '$classname (method $method)';
+					case LocalFunction(name):
+						msg += 'Local Function ($name)';
 				}
+
+				msg += '\n';
 			}
 
-			errMsg += u.error;
+			e.preventDefault();
+			e.stopPropagation();
+			e.stopImmediatePropagation();
 
 			#if sys
 			try
@@ -123,17 +128,20 @@ class SUtil
 					+ '-'
 					+ Date.now().toString().replace(' ', '-').replace(':', "'")
 					+ '.log',
-					errMsg
-					+ '\n');
+					msg);
 			}
-			#if android
 			catch (e:Dynamic)
-			Toast.makeText("Error!\nClouldn't save the crash dump because:\n" + e, Toast.LENGTH_LONG);
-			#end
+			{
+				#if android
+				Toast.makeText("Error!\nClouldn't save the crash dump because:\n" + e, Toast.LENGTH_LONG);
+				#else
+				println("Error!\nClouldn't save the crash dump because:\n" + e);
+				#end
+			}
 			#end
 
-			println(errMsg);
-			Lib.application.window.alert(errMsg, 'Error!');
+			println(msg);
+			Lib.application.window.alert(msg, 'Error!');
 			LimeSystem.exit(1);
 		});
 	}
@@ -182,10 +190,14 @@ class SUtil
 			Toast.makeText("File Saved Successfully!", Toast.LENGTH_LONG);
 			#end
 		}
-		#if android
 		catch (e:Dynamic)
-		Toast.makeText("Error!\nClouldn't save the file because:\n" + e, Toast.LENGTH_LONG);
-		#end
+		{
+			#if android
+			Toast.makeText("Error!\nClouldn't save the file because:\n" + e, Toast.LENGTH_LONG);
+			#else
+			println("Error!\nClouldn't save the file because:\n" + e);
+			#end
+		}
 	}
 
 	public static function copyContent(copyPath:String, savePath:String):Void
@@ -200,10 +212,14 @@ class SUtil
 				File.saveBytes(savePath, Assets.getBytes(copyPath));
 			}
 		}
-		#if android
 		catch (e:Dynamic)
-		Toast.makeText("Error!\nClouldn't copy the file because:\n" + e, Toast.LENGTH_LONG);
-		#end
+		{
+			#if android
+			Toast.makeText("Error!\nClouldn't copy the file because:\n" + e, Toast.LENGTH_LONG);
+			#else
+			println("Error!\nClouldn't copy the file because:\n" + e);
+			#end
+		}
 	}
 	#end
 
@@ -213,7 +229,7 @@ class SUtil
 		Sys.println(msg);
 		#else
 		// Pass null to exclude the position.
-		haxe.Log.trace(msg, null);
+		Log.trace(msg, null);
 		#end
 	}
 }
