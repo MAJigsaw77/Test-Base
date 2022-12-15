@@ -28,7 +28,7 @@ class State extends FlxState
 				bg.bitmap.canSkip = false;
 				bg.bitmap.canUseSound = false;
 				bg.finishCallback = next;
-				bg.playVideo(SUtil.getStorageDirectory() + 'klaskiiTitle.mp4');
+				bg.playVideo(SUtil.getStorageDirectory() + 'stressCutscene.mp4');
 				insert(bg, 0);
 			}
 			catch (e:Dynamic)
