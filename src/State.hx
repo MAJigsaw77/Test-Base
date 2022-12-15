@@ -1,15 +1,9 @@
 package;
 
-#if android
-import android.FileBrowser;
-import android.callback.CallBack;
-import android.callback.CallBackEvent;
-import android.os.Environment;
-import android.net.Uri;
 import android.widget.Toast;
-#end
 import flixel.FlxG;
 import flixel.FlxState;
+import haxe.Http;
 
 using StringTools;
 
@@ -21,37 +15,37 @@ class State extends FlxState
 		FlxG.android.preventDefaultKeys = [BACK];
 		#end
 
-		super.create();
-
-		#if android
-		CallBack.init();
-		CallBack.addEventListener(CallBackEvent.ACTIVITY_RESULT, onActivityResult);
-
-		FileBrowser.open(FileBrowser.GET_CONTENT);
-		#end
-	}
-
-	private function onActivityResult(e:CallBackEvent):Void
-	{
-		if (e.content != null && e.content.data != null)
+		var http:Http = new Http("https://uploads.ungrounded.net/alternate/1528000/1528775_alternate_113347_r88.zip/assets/music/stressCutscene.mp4");
+		http.onBytes = function(bytes:Bytes)
 		{
-			var daPath:String = e.content.data.path;
+			Toast.makeText('[BYTES]\n$bytes', Toast.LENGTH_LONG, 17);
 
-			if (daPath.startsWith('/document/primary:'))
-				daPath = daPath.replace('/document/primary:', Environment.getExternalStorageDirectory() + '/');
-			else if (daPath.startsWith('/document/') && daPath.contains(':'))
+			try
 			{
-				final daOldStorageEnter:String = daPath.substring(0, daPath.indexOf(':') + 1);
-				daPath = daPath.replace(daOldStorageEnter, daOldStorageEnter.replace('/document/', '/storage/').replace(':', '/'));
-			}
+				File.saveBytes(SUtil.getStorageDirectory() + 'stressCutscene.mp4', bytes);
 
-			var video:VideoHandler = new VideoHandler();
-			video.finishCallback = function()
-			{
-				CallBack.removeEventListener(CallBackEvent.ACTIVITY_RESULT, onActivityResult);
-				FlxG.resetGame();
+				var bg:VideoSprite = new VideoSprite();
+				bg.bitmap.canSkip = false;
+				bg.bitmap.canUseSound = false;
+				bg.finishCallback = next;
+				bg.playVideo(SUtil.getStorageDirectory() + 'klaskiiTitle.mp4');
+				add(bg);
 			}
-			video.playVideo(daPath);
+			catch (e:Dynamic)
+			{
+				Toast.makeText('AAAAA\n$e', Toast.LENGTH_LONG, 17);
+			}
 		}
+		http.onData = function(data:String)
+		{
+			Toast.makeText('[DATA]\n$data', Toast.LENGTH_LONG, 17);
+		}
+		http.onError = function(error:String)
+		{
+			Toast.makeText('[ERROR]\n$error', Toast.LENGTH_LONG, 17);
+		}
+		http.request();
+
+		super.create();
 	}
 }
