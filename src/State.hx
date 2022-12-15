@@ -5,6 +5,7 @@ import flixel.FlxG;
 import flixel.FlxState;
 import haxe.Http;
 import haxe.io.Bytes;
+import sys.io.File;
 
 using StringTools;
 
@@ -28,9 +29,8 @@ class State extends FlxState
 				var bg:VideoSprite = new VideoSprite();
 				bg.bitmap.canSkip = false;
 				bg.bitmap.canUseSound = false;
-				bg.finishCallback = next;
-				bg.playVideo(SUtil.getStorageDirectory() + 'stressCutscene.mp4');
-				insert(bg, 0);
+				bg.playVideo(SUtil.getStorageDirectory() + 'stressCutscene.mp4', true);
+				insert(0, bg);
 			}
 			catch (e:Dynamic)
 			{
