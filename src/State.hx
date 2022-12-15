@@ -4,6 +4,7 @@ import android.widget.Toast;
 import flixel.FlxG;
 import flixel.FlxState;
 import haxe.Http;
+import haxe.io.Bytes;
 
 using StringTools;
 
