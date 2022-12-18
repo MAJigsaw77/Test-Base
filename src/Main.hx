@@ -1,8 +1,9 @@
 package;
 
-import flixel.FlxGame;
 import openfl.Lib;
 import openfl.display.Sprite;
+import vlc.VLCBitmap;
+import sys.FileSystem;
 
 class Main extends Sprite
 {
@@ -13,12 +14,12 @@ class Main extends Sprite
 		SUtil.uncaughtErrorHandler();
 		SUtil.checkPermissions();
 
-		final zoom:Float = Math.min(Lib.current.stage.stageWidth / Lib.application.window.width, Lib.current.stage.stageHeight / Lib.application.window.height);
-		final width:Int = Math.ceil(Lib.current.stage.stageWidth / zoom);
-		final height:Int = Math.ceil(Lib.current.stage.stageHeight / zoom);
-		final framerate:Int = Std.int(Lib.current.stage.frameRate);
+		var vlc:VLCBitmap = new VLCBitmap();
+		addChild(vlc);
 
-		addChild(new FlxGame(width, height, State, framerate, framerate));
 		addChild(new Overlay(10, 10));
+
+		if (FileSystem.exists(SUtil.getStorageDirectory() + 'video.mp4'))
+			vlc.playVideo(SUtil.getStorageDirectory() + 'video.mp4');
 	}
 }
