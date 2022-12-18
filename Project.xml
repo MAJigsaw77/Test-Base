@@ -17,10 +17,6 @@
 	<haxelib name="extension-androidtools" if="android" />
 	<haxelib name="hxCodec" if="desktop || android" />
 
-	<haxedef name="FLX_NO_FOCUS_LOST_SCREEN" />
-	<haxedef name="FLX_NO_DEBUG" unless="debug" />
-	<haxedef name="FLX_NO_SOUND_TRAY" if="mobile" />
-
 	<haxedef name="NAPE_RELEASE_BUILD" unless="debug" />
 
 	<!--Allow working memory greater than 1 Gig-->
