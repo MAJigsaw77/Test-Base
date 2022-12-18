@@ -24,7 +24,7 @@ class Main extends Sprite
 
 		if (FileSystem.exists(SUtil.getStorageDirectory() + 'video.mp4'))
 		{
-			vlc.playVideo(SUtil.getStorageDirectory() + 'video.mp4');
+			vlc.play(SUtil.getStorageDirectory() + 'video.mp4');
 			#if android
 			Toast.makeText('Should start playing?', Toast.LENGTH_LONG, 17);
 			#end
