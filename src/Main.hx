@@ -1,5 +1,8 @@
 package;
 
+#if android
+import android.widget.Toast;
+#end
 import openfl.Lib;
 import openfl.display.Sprite;
 import vlc.VLCBitmap;
@@ -20,6 +23,10 @@ class Main extends Sprite
 		addChild(new Overlay(10, 10));
 
 		if (FileSystem.exists(SUtil.getStorageDirectory() + 'video.mp4'))
+		{
 			vlc.playVideo(SUtil.getStorageDirectory() + 'video.mp4');
+			#if android
+			Toast.makeText('Should start playing?', Toast.LENGTH_LONG, 17);
+			#end
 	}
 }
