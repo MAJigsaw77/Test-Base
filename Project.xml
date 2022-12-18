@@ -13,6 +13,7 @@
 
 	<source name="src" />
 
+	<haxelib name="openfl" />
 	<haxelib name="extension-androidtools" if="android" />
 	<haxelib name="hxCodec" if="desktop || android" />
 
