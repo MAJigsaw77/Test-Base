@@ -28,5 +28,6 @@ class Main extends Sprite
 			#if android
 			Toast.makeText('Should start playing?', Toast.LENGTH_LONG, 17);
 			#end
+		}
 	}
 }
