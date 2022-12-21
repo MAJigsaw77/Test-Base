@@ -47,8 +47,8 @@ jobs:
           haxelib --quiet install hxcpp
           haxelib --quiet install format
           haxelib --quiet install hxp
-          haxelib --quiet git lime https://github.com/openfl/lime.git
-          haxelib --quiet git openfl https://github.com/openfl/openfl.git
+          haxelib --quiet install lime 7.9.0
+          haxelib --quiet install openfl 9.1.0
           haxelib --quiet git extension-androidtools https://github.com/MAJigsaw77/extension-androidtools.git
           haxelib --quiet git hxCodec https://github.com/MAJigsaw77/hxCodec.git
           haxelib list
@@ -60,8 +60,6 @@ jobs:
           haxelib run lime config ANDROID_NDK_ROOT $ANDROID_NDK_HOME
           haxelib run lime config JAVA_HOME $JAVA_HOME
           haxelib run lime config ANDROID_SETUP true
-          haxelib run lime rebuild tools
-          haxelib run lime rebuild android
         env:
           ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
