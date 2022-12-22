@@ -3,7 +3,6 @@ package;
 #if android
 import android.os.Build.VERSION;
 #end
-import haxe.Timer;
 import openfl.Lib;
 import openfl.events.Event;
 import openfl.system.System;
@@ -18,8 +17,9 @@ enum GPUInfo
 
 class Overlay extends TextField
 {
-	private var times:Array<Float> = [];
-	private var totalMemoryPeak:Float = 0;
+	@:noCompletion private var currentTime:Float;
+	@:noCompletion private var currentMemoryPeak:Float;
+	@:noCompletion private var times:Array<Float>;
 
 	public function new(x:Float, y:Float)
 	{
@@ -32,65 +32,76 @@ class Overlay extends TextField
 		this.mouseEnabled = false;
 		this.defaultTextFormat = new TextFormat('_sans', 15, 0xFFFFFF);
 
+		currentTime = 0;
+		currentMemoryPeak = 0;
+		times = [];
+
 		addEventListener(Event.ENTER_FRAME, function(e:Event)
 		{
-			var now = Timer.stamp();
-			times.push(now);
-			while (times[0] < now - 1)
-				times.shift();
-
-			final frameRate:Int = Std.int(Lib.current.stage.frameRate);
-			var currentFrames:Int = times.length;
-			if (currentFrames > frameRate)
-				currentFrames = frameRate;
-
-			if (currentFrames <= frameRate / 4)
-				textColor = 0xFFFF0000;
-			else if (currentFrames <= frameRate / 2)
-				textColor = 0xFFFFFF00;
-			else
-				textColor = 0xFFFFFFFF;
-
-			var totalMemory:Float = System.totalMemory;
-			if (totalMemory > totalMemoryPeak)
-				totalMemoryPeak = totalMemory;
-
-			if (visible)
-			{
-				var text:Array<String> = [];
-				text.push('FPS: ${currentFrames}');
-				text.push('Memory: ${getInterval(totalMemory)} / ${getInterval(totalMemoryPeak)}');
-				text.push('GL Renderer: ${getInfo(RENDERER)}');
-				text.push('GL Shading Version: ${getInfo(SHADING_LANGUAGE_VERSION)}');
-				#if android
-				text.push('System: Android ${VERSION.RELEASE} (API ${VERSION.SDK_INT})');
-				#else
-				text.push('System: ${lime.system.System.platformLabel} ${lime.system.System.platformVersion}');
-				#end
-				this.text = text.join('\n') + '\n';
-			}
+			var time:Int = Lib.getTimer();
+			onEnterFrame(time - currentTime);
 		});
 	}
 
-	private function getInterval(size:Float):String
+	private function onEnterFrame(deltaTime:Float):Void
+	{
+		currentTime += deltaTime;
+		times.push(currentTime);
+
+		while (times[0] < currentTime - 1000)
+			times.shift();
+
+		var currentFrames:Int = times.length;
+		if (currentFrames > Std.int(Lib.current.stage.frameRate))
+			currentFrames = Std.int(Lib.current.stage.frameRate);
+
+		if (currentFrames <= Std.int(Lib.current.stage.frameRate) / 4)
+			textColor = 0xFFFF0000;
+		else if (currentFrames <= Std.int(Lib.current.stage.frameRate) / 2)
+			textColor = 0xFFFFFF00;
+		else
+			textColor = 0xFFFFFFFF;
+
+		var currentMemory:Float = System.totalMemory;
+		if (currentMemory > currentMemoryPeak)
+			currentMemoryPeak = totalMemory;
+
+		if (visible || alpha > 0)
+		{
+			var stats:Array<String> = [];
+			stats.push('FPS: ${currentFrames}');
+			stats.push('Memory: ${getMemoryInterval(currentMemory)} / ${getMemoryInterval(currentMemoryPeak)}');
+			stats.push('GL Renderer: ${getInfo(RENDERER)}');
+			stats.push('GL Shading Version: ${getInfo(SHADING_LANGUAGE_VERSION)}');
+			#if android
+			stats.push('OS: Android ${VERSION.RELEASE} (API ${VERSION.SDK_INT})');
+			#else
+			stats.push('OS: ${lime.system.System.platformLabel} ${lime.system.System.platformVersion}');
+			#end
+			stats.push('');
+			text = stats.join('\n');
+		}
+	}
+
+	private function getMemoryInterval(size:Float):String
 	{
 		var data:Int = 0;
 
 		final intervalArray:Array<String> = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-		while (size >= 1024 && data < intervalArray.length - 1)
+		while (size >= 1000 && data < intervalArray.length - 1)
 		{
 			data++;
-			size = size / 1024;
+			size = size / 1000;
 		}
 
 		size = Math.round(size * 100) / 100;
 		return size + ' ' + intervalArray[data];
 	}
 
-	private function getInfo(info:GPUInfo):String
+	private function getGLInfo(info:GPUInfo):String
 	{
 		@:privateAccess
-		var gl:Dynamic = Lib.current.stage.context3D.gl;
+		var gl:Any = Lib.current.stage.context3D.gl;
 
 		switch (info)
 		{
@@ -100,7 +111,6 @@ class Overlay extends TextField
 				return Std.string(gl.getParameter(gl.SHADING_LANGUAGE_VERSION));
 		}
 
-		return null;
+		return '';
 	}
 }
-
