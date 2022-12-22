@@ -16,6 +16,9 @@
 	<!--Export Folder-->
 	<set name="BUILD_DIR" value="export" />
 
+	<!--Assets Folders Paths-->
+	<assets path="assets/videos" if="desktop || android" />
+
 	<!--Source Folder-->
 	<source name="src" />
 
