@@ -21,7 +21,7 @@ class Overlay extends TextField
 	@:noCompletion private var currentMemoryPeak:Float;
 	@:noCompletion private var times:Array<Float>;
 
-	public function new(x:Float, y:Float)
+	public function new(x:Float, y:Float, size:Int = 15, color:Int = 0xFFFFFF)
 	{
 		super();
 
@@ -30,7 +30,7 @@ class Overlay extends TextField
 		this.autoSize = LEFT;
 		this.selectable = false;
 		this.mouseEnabled = false;
-		this.defaultTextFormat = new TextFormat('_sans', 15, 0xFFFFFF);
+		this.defaultTextFormat = new TextFormat('_sans', size, color);
 
 		currentTime = 0;
 		currentMemoryPeak = 0;
