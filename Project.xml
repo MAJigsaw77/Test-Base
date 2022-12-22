@@ -5,10 +5,10 @@
 	<app title="Test-Base" file="Test-Base" package="com.majigsaw.testbase" main="Main" version="1.0.0" company="M.A. Jigsaw" />
 
 	<!--Application Window-->
-	<window orientation="landscape" fps="60" background="#000000" hardware="true" vsync="false" allow-shaders="true" require-shaders="true" allow-high-dpi="true" />
+	<window fps="60" background="#000000" hardware="true" vsync="false" allow-shaders="true" require-shaders="true" allow-high-dpi="true" />
 
-	<window width="1280" height="720" fullscreen="true" resizable="false" if="desktop" />
-	<window width="0" height="0" fullscreen="false" resizable="true" if="mobile" />
+	<window orientation="landscape" width="1280" height="720" fullscreen="true" resizable="false" if="desktop" />
+	<window orientation="auto" width="0" height="0" fullscreen="false" resizable="true" if="mobile" />
 
 	<!--Export Folder-->
 	<set name="BUILD_DIR" value="export" />
