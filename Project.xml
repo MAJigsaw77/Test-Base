@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://lime.software/project/1.0.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://lime.software/xsd/project-1.0.2.xsd">
 
-	<!--Application Meta-->
-	<app title="Test-Base" file="Test-Base" package="com.majigsaw.testbase" main="Main" version="1.0.0" company="M.A. Jigsaw" />
+	<!--Application Meta-Data-->
+	<app title="Test-Base" package="com.majigsaw.testbase" company="M.A. Jigsaw" version="1.0.0" />
 
-	<!--Application Window-->
+	<!--Application Meta-Data-->
+	<app file="Test-Base" main="Main" />
+
+	<!--Application Window Settings-->
 	<window fps="60" background="#000000" hardware="true" vsync="false" allow-shaders="true" require-shaders="true" allow-high-dpi="true" />
 
 	<window orientation="landscape" width="1280" height="720" fullscreen="false" resizable="true" if="desktop" />
-	<window orientation="auto" width="0" height="0" fullscreen="true" resizable="false" if="mobile" />
+	<window orientation="landscape" width="0" height="0" fullscreen="true" resizable="false" if="mobile" />
 
 	<!--Export Folder-->
 	<set name="BUILD_DIR" value="export" />
@@ -17,8 +20,19 @@
 	<source name="src" />
 
 	<!--Haxelibs-->
-	<haxelib name="openfl" />
+	<haxelib name="flixel" />
 	<haxelib name="extension-androidtools" if="android" />
+
+	<!--Optimise inputs, be careful you will get null errors if you don't use conditionals in your game-->
+	<haxedef name="FLX_NO_MOUSE" if="mobile" />
+	<haxedef name="FLX_NO_KEYBOARD" if="mobile" />
+	<haxedef name="FLX_NO_TOUCH" if="desktop" />
+
+	<!--Disable the Flixel core focus lost screen-->
+	<haxedef name="FLX_NO_FOCUS_LOST_SCREEN" />
+
+	<!--Disable the Flixel core debugger. Automatically gets set whenever you compile in release mode!-->
+	<haxedef name="FLX_NO_DEBUG" unless="debug" />
 
 	<!--Improving performance on non-debug builds-->
 	<haxedef name="NAPE_RELEASE_BUILD" unless="debug" />
