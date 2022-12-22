@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://lime.software/project/1.0.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://lime.software/xsd/project-1.0.2.xsd">
 
+	<!--Application Meta-->
 	<app title="Test-Base" file="Test-Base" package="com.majigsaw.testbase" main="Main" version="1.0.0" company="M.A. Jigsaw" />
 
-	<window orientation="landscape" width="1280" height="720" fps="60" background="#000000" hardware="true" vsync="false" allow-shaders="true" require-shaders="true" allow-high-dpi="true" />
+	<!--Application Window-->
+	<window orientation="landscape" fps="60" background="#000000" hardware="true" vsync="false" allow-shaders="true" require-shaders="true" allow-high-dpi="true" />
 
-	<window if="mobile" fullscreen="true" resizable="false" />
-	<window if="desktop" fullscreen="false" resizable="true" />
+	<window width="1280" height="720" fullscreen="true" resizable="false" if="desktop" />
+	<window width="0" height="0" fullscreen="false" resizable="true" if="mobile" />
 
-	<set name="BUILD_DIR" value="export/debug" if="debug" />
-	<set name="BUILD_DIR" value="export/release" unless="debug" />
+	<!--Export Folder-->
+	<set name="BUILD_DIR" value="export" />
 
+	<!--Source Folder-->
 	<source name="src" />
 
+	<!--Haxelibs-->
 	<haxelib name="openfl" />
 	<haxelib name="extension-androidtools" if="android" />
-	<haxelib name="hxCodec" if="desktop || android" />
 
+	<!--Improving performance on non-debug builds-->
 	<haxedef name="NAPE_RELEASE_BUILD" unless="debug" />
 
 	<!--Allow working memory greater than 1 Gig-->
@@ -45,6 +49,7 @@
 		<dependency name="WebKit.framework" />
 	</section>
 
+	<!--Icon-->
 	<icon path="res/icon.png" />
 
 </project>
