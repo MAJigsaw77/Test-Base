@@ -78,7 +78,7 @@ class Overlay extends TextField
 			#else
 			stats.push('OS: ${lime.system.System.platformLabel} ${lime.system.System.platformVersion}');
 			#end
-			stats.push('');
+			stats.push(''); // adding this to not hide the last line.
 			text = stats.join('\n');
 		}
 	}
