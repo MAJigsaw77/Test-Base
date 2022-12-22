@@ -8,11 +8,10 @@ class PlayState extends FlxState
 	{
 		super.create();
 
-		var bg:VideoSprite = new VideoSprite();
-		bg.bitmap.canSkip = false;
-		bg.bitmap.canUseAutoResize = false;
+		var bg:VideoHandler = new VideoHandler();
+		bg.canSkip = false;
+		bg.canUseAutoResize = false;
 		bg.playVideo(SUtil.getStorageDirectory() + 'assets/videos/sarv.mp4', true);
-		add(bg);
 	}
 
 	override public function update(elapsed:Float)
