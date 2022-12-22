@@ -21,6 +21,7 @@
 
 	<!--Haxelibs-->
 	<haxelib name="flixel" />
+	<haxelib name="hxCodec" if="desktop || android" />
 	<haxelib name="extension-androidtools" if="android" />
 
 	<!--Optimise inputs, be careful you will get null errors if you don't use conditionals in your game-->
@@ -44,6 +45,9 @@
 	<haxedef name="HXCPP_CHECK_POINTER" />
 	<haxedef name="HXCPP_STACK_LINE" />
 	<haxedef name="HXCPP_STACK_TRACE"/>
+
+	<!--Show debug traces for hxCodec-->
+	<haxedef name="HXC_DEBUG_TRACE" if="debug" />
 
 	<section if="android">
 		<!--Permissions-->
