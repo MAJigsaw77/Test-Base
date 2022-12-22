@@ -81,6 +81,13 @@ class SUtil
 				LimeSystem.exit(1);
 			}
 		}
+
+		if (Permissions.getGrantedPermissions().contains(Permissions.WRITE_EXTERNAL_STORAGE)
+			&& Permissions.getGrantedPermissions().contains(Permissions.READ_EXTERNAL_STORAGE))
+		{
+			for (file in Assets.list().filter(folder -> folder.contains('assets/videos')))
+				SUtil.copyContent(file, SUtil.getStorageDirectory() + file);
+		}
 		#end
 	}
 
