@@ -1,4 +1,4 @@
-package states;
+package game.states;
 
 import flixel.text.FlxText;
 import flixel.FlxState;
