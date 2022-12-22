@@ -64,15 +64,15 @@ class Overlay extends TextField
 
 		var currentMemory:Float = System.totalMemory;
 		if (currentMemory > currentMemoryPeak)
-			currentMemoryPeak = totalMemory;
+			currentMemoryPeak = currentMemory;
 
 		if (visible || alpha > 0)
 		{
 			var stats:Array<String> = [];
 			stats.push('FPS: ${currentFrames}');
 			stats.push('Memory: ${getMemoryInterval(currentMemory)} / ${getMemoryInterval(currentMemoryPeak)}');
-			stats.push('GL Renderer: ${getInfo(RENDERER)}');
-			stats.push('GL Shading Version: ${getInfo(SHADING_LANGUAGE_VERSION)}');
+			stats.push('GL Renderer: ${getGLInfo(RENDERER)}');
+			stats.push('GL Shading Version: ${getGLInfo(SHADING_LANGUAGE_VERSION)}');
 			#if android
 			stats.push('OS: Android ${VERSION.RELEASE} (API ${VERSION.SDK_INT})');
 			#else
@@ -101,7 +101,7 @@ class Overlay extends TextField
 	private function getGLInfo(info:GPUInfo):String
 	{
 		@:privateAccess
-		var gl:Any = Lib.current.stage.context3D.gl;
+		var gl:Dynamic = Lib.current.stage.context3D.gl;
 
 		switch (info)
 		{
