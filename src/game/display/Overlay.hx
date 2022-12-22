@@ -1,4 +1,4 @@
-package;
+package game.display;
 
 #if android
 import android.os.Build.VERSION;
