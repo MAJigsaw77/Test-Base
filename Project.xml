@@ -68,6 +68,6 @@
 	</section>
 
 	<!--Icon-->
-	<icon path="res/icon.png" />
+	<icon path="assets/project-data/icon.png" />
 
 </project>
