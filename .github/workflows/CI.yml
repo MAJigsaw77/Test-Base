@@ -50,7 +50,6 @@ jobs:
           haxelib --quiet install lime 7.9.0
           haxelib --quiet install openfl 9.1.0
           haxelib --quiet git extension-androidtools https://github.com/MAJigsaw77/extension-androidtools.git
-          haxelib --quiet git hxCodec https://github.com/MAJigsaw77/hxCodec.git
           haxelib list
 
       - name: Configure Android
@@ -70,5 +69,5 @@ jobs:
         uses: actions/upload-artifact@main
         with:
           name: androidBuild-${{ matrix.arch }}
-          path: export/${{ matrix.arch }}/android/bin/app/build/outputs/apk/debug
+          path: export/android/bin/app/build/outputs/apk/debug
           if-no-files-found: error
