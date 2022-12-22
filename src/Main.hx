@@ -9,6 +9,13 @@ import game.states.PlayState;
 
 class Main extends Sprite
 {
+	var game:Dynamic = {
+		width: 1280,
+		height: 720,
+		main_state: PlayState,
+		overlay_size: 15
+	};
+
 	public function new()
 	{
 		super();
@@ -16,9 +23,9 @@ class Main extends Sprite
 		SUtil.uncaughtErrorHandler();
 		SUtil.checkPermissions();
 
-		addChild(new FlxGame(1280, 720, PlayState, Std.int(Lib.current.stage.frameRate), Std.int(Lib.current.stage.frameRate)));
+		addChild(new FlxGame(game.width, game.height, game.main_state, Std.int(Lib.current.stage.frameRate), Std.int(Lib.current.stage.frameRate)));
 
-		final zoom:Float = Math.min(Lib.current.stage.stageWidth / FlxG.stage.stageWidth, Lib.current.stage.stageHeight / FlxG.stage.stageHeight);
-		addChild(new Overlay(10, 10, Std.int(15 * zoom))); // it's annoying to have it so small as to be unable to read it.
+		final zoom:Float = Math.min(Lib.current.stage.stageWidth / game.width, Lib.current.stage.stageHeight / game.height);
+		addChild(new Overlay(10, 10, Std.int(game.overlay_size * zoom))); // it's annoying to have it so small as to be unable to read it.
 	}
 }
