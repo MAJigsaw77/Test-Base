@@ -3,7 +3,8 @@ package;
 import flixel.FlxG;
 import flixel.FlxGame;
 import openfl.display.Sprite;
-import states.PlayState;
+import game.display.Overlay;
+import game.states.PlayState;
 
 class Main extends Sprite
 {
