@@ -1,5 +1,8 @@
 package game.states;
 
+#if android
+import android.widget.Toast;
+#end
 import flixel.FlxG;
 import flixel.FlxState;
 import ffmpeg.openfl.OpenFLBitmapVideo;
@@ -16,7 +19,10 @@ class PlayState extends FlxState
 		versions.push('libavfilter version: ${Version.getLibavfilterVersion()}');
 		versions.push('libswresample version: ${Version.getLibswresampleVersion()}');
 		versions.push('libswscale version: ${Version.getLibswscaleVersion()}');
+
+		#if android
 		Toast.makeText(versions.join('\n'), Toast.LENGTH_SHORT);
+		#end
 
 		super.create();
 
