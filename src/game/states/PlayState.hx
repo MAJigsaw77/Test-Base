@@ -5,7 +5,7 @@ import android.widget.Toast;
 #end
 import flixel.FlxG;
 import flixel.FlxState;
-import ffmpeg.openfl.OpenFLBitmapVideo;
+import ffmpeg.openfl.OpenFLBitmapVideo as FfmpegPlayer;
 import ffmpeg.Version;
 
 class PlayState extends FlxState
@@ -13,12 +13,12 @@ class PlayState extends FlxState
 	override public function create()
 	{
 		var versions:Array<String> = [];
-		versions.push('libavcodec version: ${Version.getLibavcodecVersion()}');
-		versions.push('libavutil version: ${Version.getLibavutilVersion()}');
-		versions.push('libavformat version: ${Version.getLibavformatVersion()}');
-		versions.push('libavfilter version: ${Version.getLibavfilterVersion()}');
-		versions.push('libswresample version: ${Version.getLibswresampleVersion()}');
-		versions.push('libswscale version: ${Version.getLibswscaleVersion()}');
+		versions.push('avcodec version: ${Version.getLibavcodecVersion()}');
+		versions.push('avutil version: ${Version.getLibavutilVersion()}');
+		versions.push('avformat version: ${Version.getLibavformatVersion()}');
+		versions.push('avfilter version: ${Version.getLibavfilterVersion()}');
+		versions.push('swresample version: ${Version.getLibswresampleVersion()}');
+		versions.push('swscale version: ${Version.getLibswscaleVersion()}');
 
 		#if android
 		Toast.makeText(versions.join('\n'), Toast.LENGTH_SHORT);
@@ -26,8 +26,8 @@ class PlayState extends FlxState
 
 		super.create();
 
-		var video:OpenFLBitmapVideo = new OpenFLBitmapVideo();
+		var video:FfmpegPlayer = new FfmpegPlayer();
 		FlxG.addChildBelowMouse(video);
-		video.open(SUtil.getStorageDirectory() + 'assets/videos/sarv.gif');
+		video.open(SUtil.getStorageDirectory() + 'assets/videos/sarv.mp4');
 	}
 }
