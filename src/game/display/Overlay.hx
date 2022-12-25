@@ -21,16 +21,18 @@ class Overlay extends TextField
 	@:noCompletion private var currentMemoryPeak:Float;
 	@:noCompletion private var times:Array<Float>;
 
-	public function new(x:Float, y:Float, size:Int = 15)
+	public function new(x:Float = 10, y:Float = 10, width:Int = 1, height:Int = 1, size:Int = 15)
 	{
 		super();
 
 		this.x = x;
 		this.y = x;
-		this.autoSize = LEFT;
-		this.selectable = false;
-		this.mouseEnabled = false;
-		this.defaultTextFormat = new TextFormat('_sans', size, 0xFFFFFF);
+
+		autoSize = LEFT;
+		selectable = false;
+		mouseEnabled = false;
+
+		defaultTextFormat = new TextFormat('_sans', Std.int(size * Math.min(Lib.current.stage.stageWidth / width, Lib.current.stage.stageHeight / height)), 0xFFFFFF);
 
 		currentTime = 0;
 		currentMemoryPeak = 0;
@@ -40,6 +42,12 @@ class Overlay extends TextField
 		{
 			var time:Int = Lib.getTimer();
 			onEnterFrame(time - currentTime);
+		});
+		addEventListener(Event.RESIZE, function(e:Event)
+		{
+			final daSize:Int = Std.int(size * Math.min(Lib.current.stage.stageWidth / width, Lib.current.stage.stageHeight / height));
+			if (defaultTextFormat.size != daSize))
+				defaultTextFormat.size = daSize;
 		});
 	}
 
