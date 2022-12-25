@@ -25,8 +25,6 @@ class Main extends Sprite
 
 		final framerate:Int = Std.int(Lib.current.stage.frameRate);
 		addChild(new FlxGame(game.width, game.height, game.main_state, framerate, framerate));
-
-		final zoom:Float = Math.min(Lib.current.stage.stageWidth / game.width, Lib.current.stage.stageHeight / game.height);
-		addChild(new Overlay(10, 10, Std.int(game.overlay_size * zoom))); // it's annoying to have it so small as to be unable to read it.
+		addChild(new Overlay(10, 10)); // it's annoying to have it so small as to be unable to read it.
 	}
 }
