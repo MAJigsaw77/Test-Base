@@ -82,9 +82,9 @@ class Overlay extends TextField
 			stats.push('GL Renderer: ${getGLInfo(RENDERER)}');
 			stats.push('GL Shading Version: ${getGLInfo(SHADING_LANGUAGE_VERSION)}');
 			#if android
-			stats.push('OS: Android ${VERSION.RELEASE} (API ${VERSION.SDK_INT})');
+			stats.push('System: Android ${VERSION.RELEASE} (API ${VERSION.SDK_INT})');
 			#else
-			stats.push('OS: ${lime.system.System.platformLabel} ${lime.system.System.platformVersion}');
+			stats.push('System: ${lime.system.System.platformLabel} ${lime.system.System.platformVersion}');
 			#end
 			stats.push(''); // adding this to not hide the last line.
 			text = stats.join('\n');
