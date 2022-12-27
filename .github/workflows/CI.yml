@@ -19,6 +19,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@main
+        with:
+          submodules: true
 
       - name: Install System Dependencies
         run: |
@@ -42,6 +44,10 @@ jobs:
         with:
           haxe-version: 4.2.5
 
+      - name: Set HAXEPATH
+        run: |
+          echo "HAXEPATH=$HAXE_STD_PATH/.." >> $GITHUB_ENV
+
       - name: Installing Libraries
         run: |
           haxelib --quiet install hxcpp
@@ -53,6 +59,10 @@ jobs:
           haxelib --quiet git hxCodec https://github.com/MAJigsaw77/hxCodec.git
           haxelib --quiet git extension-androidtools https://github.com/MAJigsaw77/extension-androidtools.git
           haxelib list
+
+      - name: Enable HXCPP Compile Cache
+        run: |
+          echo "HXCPP_COMPILE_CACHE=~/.hxcpp" >> $GITHUB_ENV
 
       - name: Configure Android
         run: |
