@@ -5,6 +5,7 @@ import android.widget.Toast;
 #end
 import flixel.FlxG;
 import flixel.FlxState;
+import sys.FileSystem;
 import vlc.VLCBitmap;
 
 class PlayState extends FlxState
