@@ -9,7 +9,7 @@ import openfl.system.System;
 import openfl.text.TextField;
 import openfl.text.TextFormat;
 
-enum GPUInfo
+enum GLInfo
 {
 	RENDERER;
 	SHADING_LANGUAGE_VERSION;
@@ -45,8 +45,8 @@ class Overlay extends TextField
 		});
 		addEventListener(Event.RESIZE, function(e:Event)
 		{
-			final daSize:Int = Std.int(size * Math.min(Lib.current.stage.stageWidth / size_x, Lib.current.stage.stageHeight / size_y);
-			if (defaultTextFormat.size != daSize))
+			final daSize:Int = Std.int(size * Math.min(Lib.current.stage.stageWidth / size_x, Lib.current.stage.stageHeight / size_y));
+			if (defaultTextFormat.size != daSize)
 				defaultTextFormat.size = daSize;
 		});
 	}
@@ -106,7 +106,7 @@ class Overlay extends TextField
 		return size + ' ' + intervalArray[data];
 	}
 
-	private function getGLInfo(info:GPUInfo):String
+	private function getGLInfo(info:GLInfo):String
 	{
 		@:privateAccess
 		var gl:Dynamic = Lib.current.stage.context3D.gl;
