@@ -5,29 +5,23 @@ import android.widget.Toast;
 #end
 import flixel.FlxG;
 import flixel.FlxState;
-import ffmpeg.openfl.OpenFLBitmapVideo as FfmpegPlayer;
-import ffmpeg.Version;
+import vlc.VLCBitmap;
 
 class PlayState extends FlxState
 {
 	override public function create()
 	{
-		var versions:Array<String> = [];
-		versions.push('avcodec version: ${Version.getLibavcodecVersion()}');
-		versions.push('avutil version: ${Version.getLibavutilVersion()}');
-		versions.push('avformat version: ${Version.getLibavformatVersion()}');
-		versions.push('avfilter version: ${Version.getLibavfilterVersion()}');
-		versions.push('swresample version: ${Version.getLibswresampleVersion()}');
-		versions.push('swscale version: ${Version.getLibswscaleVersion()}');
+		var vlc:VLCBitmap = new VLCBitmap();
+		FlxG.addChildBelowMouse(vlc);
 
-		#if android
-		Toast.makeText(versions.join('\n'), Toast.LENGTH_SHORT);
-		#end
+		if (FileSystem.exists(SUtil.getStorageDirectory() + 'assets/videos/stressCutscene.mp4'))
+		{
+			#if android
+			Toast.makeText('Should start playing?', Toast.LENGTH_LONG, 17);
+			#end
+			vlc.play(SUtil.getStorageDirectory() + 'assets/videos/stressCutscene.mp4');
+		}
 
 		super.create();
-
-		var video:FfmpegPlayer = new FfmpegPlayer();
-		FlxG.addChildBelowMouse(video);
-		video.open(SUtil.getStorageDirectory() + 'assets/videos/sarv.mp4');
 	}
 }
