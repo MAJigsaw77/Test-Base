@@ -103,7 +103,7 @@ class Overlay extends TextField
 		}
 
 		size = Math.round(size * 100) / 100;
-		return size + ' ' + intervalArray[data];
+		return '$size ${intervalArray[data]}';
 	}
 
 	private function getGLInfo(info:GLInfo):String
