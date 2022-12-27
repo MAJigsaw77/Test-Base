@@ -50,7 +50,7 @@ jobs:
           haxelib --quiet install lime 7.9.0
           haxelib --quiet install openfl 9.1.0
           haxelib --quiet install flixel
-          haxelib --quiet git extension-ffmpeg https://github.com/MAJigsaw77/extension-ffmpeg.git
+          haxelib --quiet git hxCodec https://github.com/MAJigsaw77/hxCodec.git
           haxelib --quiet git extension-androidtools https://github.com/MAJigsaw77/extension-androidtools.git
           haxelib list
 
