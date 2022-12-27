@@ -10,19 +10,26 @@ import vlc.VLCBitmap;
 
 class PlayState extends FlxState
 {
-	override public function create()
+	var vlc:VLCBitmap;
+
+	override function create():Void
 	{
-		var vlc:VLCBitmap = new VLCBitmap();
+		vlc = new VLCBitmap();
 		FlxG.addChildBelowMouse(vlc);
 
 		if (FileSystem.exists(SUtil.getStorageDirectory() + 'assets/videos/stressCutscene.mp4'))
-		{
-			#if android
-			Toast.makeText('Should start playing?', Toast.LENGTH_LONG, 17);
-			#end
-			vlc.play(SUtil.getStorageDirectory() + 'assets/videos/stressCutscene.mp4');
-		}
+			vlc.play(SUtil.getStorageDirectory() + 'assets/videos/stressCutscene.mp4', true);
 
 		super.create();
+	}
+
+	override function update(elapsed:Float):Void
+	{
+		#if android
+		if (vlc != null && (vlc.videoWidth > 0 || vlc.videoHeigth > 0))
+			Toast.makeText('w: ${vlc.videoWidth}, h: ${vlc.videoHeigth}', Toast.LENGTH_LONG, 17);
+		#end
+
+		super.update(elapsed);
 	}
 }
