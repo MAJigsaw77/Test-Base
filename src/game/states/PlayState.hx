@@ -26,8 +26,8 @@ class PlayState extends FlxState
 	override function update(elapsed:Float):Void
 	{
 		#if android
-		if (vlc != null && (vlc.videoWidth > 0 || vlc.videoHeight > 0))
-			Toast.makeText('w: ${vlc.videoWidth}, h: ${vlc.videoHeight}', Toast.LENGTH_LONG, 17);
+		if (vlc != null)
+			Toast.makeText('v: ${vlc.volume}, r: ${vlc.rate}', Toast.LENGTH_LONG);
 		#end
 
 		super.update(elapsed);
