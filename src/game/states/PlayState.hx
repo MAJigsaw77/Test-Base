@@ -22,4 +22,14 @@ class PlayState extends FlxState
 
 		super.create();
 	}
+
+	override function update(elapsed:Float):Void
+	{
+		#if android
+		if (vlc != null)
+			Toast.makeText('fps: ${vlc.fps}, delay: ${vlc.delay}', Toast.LENGTH_LONG);
+		#end
+
+		super.update(elapsed);
+	}
 }
