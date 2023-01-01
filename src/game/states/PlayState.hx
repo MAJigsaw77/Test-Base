@@ -15,7 +15,10 @@ class PlayState extends FlxState
 	override function create():Void
 	{
 		vlc = new VLCBitmap();
+		vlc.width = calcSize(0);
+		vlc.height = calcSize(1);
 		FlxG.addChildBelowMouse(vlc);
+
 		if (FileSystem.exists(SUtil.getStorageDirectory() + 'assets/videos/stressCutscene.mp4'))
 			vlc.play(SUtil.getStorageDirectory() + 'assets/videos/stressCutscene.mp4', true);
 
@@ -34,5 +37,27 @@ class PlayState extends FlxState
 		#end
 
 		super.update(elapsed);
+	}
+
+	private function calcSize(Ind:Int):Float
+	{
+		var appliedWidth:Float = FlxG.stage.stageHeight * (FlxG.width / FlxG.height);
+		var appliedHeight:Float = FlxG.stage.stageWidth * (FlxG.height / FlxG.width);
+
+		if (appliedHeight > FlxG.stage.stageHeight)
+			appliedHeight = FlxG.stage.stageHeight;
+
+		if (appliedWidth > FlxG.stage.stageWidth)
+			appliedWidth = FlxG.stage.stageWidth;
+
+		switch (Ind)
+		{
+			case 0:
+				return appliedWidth;
+			case 1:
+				return appliedHeight;
+		}
+
+		return 0;
 	}
 }
