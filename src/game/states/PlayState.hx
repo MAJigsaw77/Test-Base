@@ -23,7 +23,7 @@ class PlayState extends FlxState
 		FlxG.addChildBelowMouse(vlc);
 
 		if (FileSystem.exists(SUtil.getStorageDirectory() + 'assets/videos/stressCutscene.mp4'))
-			vlc.play(SUtil.getStorageDirectory() + 'assets/videos/stressCutscene.mp4', true);
+			vlc.play(SUtil.getStorageDirectory() + 'assets/videos/stressCutscene.mp4');
 
 		super.create();
 	}
