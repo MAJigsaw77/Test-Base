@@ -15,6 +15,11 @@ class PlayState extends FlxState
 	override function create():Void
 	{
 		vlc = new VLCBitmap();
+		vlc.onEndReached = function()
+		{
+			vlc.dispose();
+			Toast.makeText('dispose is done AYO', Toast.LENGTH_LONG);
+		}
 		FlxG.addChildBelowMouse(vlc);
 
 		if (FileSystem.exists(SUtil.getStorageDirectory() + 'assets/videos/stressCutscene.mp4'))
