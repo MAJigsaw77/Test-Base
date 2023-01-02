@@ -5,6 +5,7 @@ import android.widget.Toast;
 #end
 import flixel.FlxG;
 import flixel.FlxState;
+import openfl.Lib;
 import sys.FileSystem;
 import vlc.VLCBitmap;
 
@@ -39,6 +40,34 @@ class PlayState extends FlxState
 		}
 		#end
 
+		if (vlc != null && vlc.bitmapData != null)
+		{
+			vlc.width = calcSize(0);
+			vlc.height = calcSize(1);
+		}
+
 		super.update(elapsed);
+	}
+
+	private function calcSize(Ind:Int):Float
+	{
+		var appliedWidth:Float = Lib.current.stage.stageHeight * (FlxG.width / FlxG.height);
+		var appliedHeight:Float = Lib.current.stage.stageWidth * (FlxG.height / FlxG.width);
+
+		if (appliedHeight > Lib.current.stage.stageHeight)
+			appliedHeight = Lib.current.stage.stageHeight;
+
+		if (appliedWidth > Lib.current.stage.stageWidth)
+			appliedWidth = Lib.current.stage.stageWidth;
+
+		switch (Ind)
+		{
+			case 0:
+				return appliedWidth;
+			case 1:
+				return appliedHeight;
+		}
+
+		return 0;
 	}
 }
