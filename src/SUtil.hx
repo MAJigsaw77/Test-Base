@@ -11,7 +11,7 @@ import haxe.io.Path;
 import lime.system.System as LimeSystem;
 import openfl.Lib;
 import openfl.events.UncaughtErrorEvent;
-import opengl.system.Sytem as OpenFLSystem;
+import openfl.system.Sytem as OpenFLSystem;
 import openfl.utils.Assets;
 #if sys
 import sys.FileSystem;
