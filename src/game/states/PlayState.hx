@@ -7,24 +7,20 @@ import flixel.FlxG;
 import flixel.FlxState;
 import openfl.Lib;
 import sys.FileSystem;
-import vlc.VLCBitmap;
 
 class PlayState extends FlxState
 {
-	var vlc:VLCBitmap;
+	var vlc:VideoHandler;
 
 	override function create():Void
 	{
-		vlc = new VLCBitmap();
-		vlc.onEndReached = function()
+		vlc = new VideoHandler();
+		vlc.finishCallback = function()
 		{
-			vlc.dispose();
 			Toast.makeText('dispose is done!', Toast.LENGTH_LONG);
 		}
-		FlxG.addChildBelowMouse(vlc);
-
 		if (FileSystem.exists(SUtil.getStorageDirectory() + 'assets/videos/stressCutscene.mp4'))
-			vlc.play(SUtil.getStorageDirectory() + 'assets/videos/stressCutscene.mp4');
+			vlc.playVideo(SUtil.getStorageDirectory() + 'assets/videos/stressCutscene.mp4');
 
 		super.create();
 	}
@@ -40,34 +36,6 @@ class PlayState extends FlxState
 		}
 		#end
 
-		if (vlc != null && (vlc.videoWidth > 0 && vlc.videoHeight > 0))
-		{
-			vlc.width = calcSize(0);
-			vlc.height = calcSize(1);
-		}
-
 		super.update(elapsed);
-	}
-
-	private function calcSize(Ind:Int):Float
-	{
-		var appliedWidth:Float = Lib.current.stage.stageHeight * (FlxG.width / FlxG.height);
-		var appliedHeight:Float = Lib.current.stage.stageWidth * (FlxG.height / FlxG.width);
-
-		if (appliedHeight > Lib.current.stage.stageHeight)
-			appliedHeight = Lib.current.stage.stageHeight;
-
-		if (appliedWidth > Lib.current.stage.stageWidth)
-			appliedWidth = Lib.current.stage.stageWidth;
-
-		switch (Ind)
-		{
-			case 0:
-				return appliedWidth;
-			case 1:
-				return appliedHeight;
-		}
-
-		return 0;
 	}
 }
