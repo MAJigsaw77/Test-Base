@@ -19,7 +19,7 @@ class PlayState extends FlxState
 		vlc.onEndReached = function()
 		{
 			vlc.dispose();
-			Toast.makeText('dispose is done AYO', Toast.LENGTH_LONG);
+			Toast.makeText('dispose is done!', Toast.LENGTH_LONG);
 		}
 		FlxG.addChildBelowMouse(vlc);
 
@@ -40,7 +40,7 @@ class PlayState extends FlxState
 		}
 		#end
 
-		if (vlc != null && vlc.bitmapData != null)
+		if (vlc != null && (vlc.videoWidth > 0 && vlc.videoHeight > 0))
 		{
 			vlc.width = calcSize(0);
 			vlc.height = calcSize(1);
