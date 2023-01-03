@@ -8,7 +8,7 @@
 	<app file="Test-Base" main="Main" />
 
 	<!--Application Window Settings-->
-	<window fps="60" background="#000000" hardware="true" vsync="true" allow-shaders="true" require-shaders="true" allow-high-dpi="true" />
+	<window fps="60" background="#000000" hardware="true" vsync="true" allow-shaders="true" require-shaders="true" />
 
 	<window orientation="landscape" width="1280" height="720" fullscreen="false" resizable="true" if="desktop" />
 	<window orientation="landscape" width="0" height="0" fullscreen="true" resizable="false" if="mobile" />
