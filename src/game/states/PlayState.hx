@@ -16,8 +16,9 @@ class PlayState extends FlxState
 	{
 		vlc = new VideoHandler();
 		vlc.finishCallback = function()
-		{
-			Toast.makeText('dispose is done!', Toast.LENGTH_LONG);
+		{       #if android 
+			Toast.makeText('dispose is done!', Toast.LENGTH_LONG); 
+		        #end 
 		}
 		if (FileSystem.exists(SUtil.getStorageDirectory() + 'assets/videos/stressCutscene.mp4'))
 			vlc.playVideo(SUtil.getStorageDirectory() + 'assets/videos/stressCutscene.mp4');
@@ -28,13 +29,14 @@ class PlayState extends FlxState
 	private var oneTime:Bool = false; 
 	override function update(elapsed:Float):Void
 	{
-		#if android // i need these informations :|
+		 // i need these informations :|
 		if ((vlc != null && vlc.isPlaying) && !oneTime)
-		{
-			Toast.makeText('fps: ${vlc.fps}\ndelay: ${vlc.delay}\nduration: ${vlc.duration}', Toast.LENGTH_LONG);
+		{       #if android
+			Toast.makeText('fps: ${vlc.fps}\ndelay: ${vlc.delay}\nduration: ${vlc.duration}', Toast.LENGTH_LONG); 
+		        #end 
 			oneTime = true;
 		}
-		#end
+		
 
 		super.update(elapsed);
 	}
