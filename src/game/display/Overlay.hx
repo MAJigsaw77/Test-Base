@@ -83,6 +83,8 @@ class Overlay extends TextField
 			stats.push('GL Shading Version: ${getGLInfo(SHADING_LANGUAGE_VERSION)}');
 			#if android
 			stats.push('System: Android ${VERSION.RELEASE} (API ${VERSION.SDK_INT})');
+			#elseif mac
+			stats.push('System: ${lime.system.System.platformLabel}');
 			#else
 			stats.push('System: ${lime.system.System.platformLabel} ${lime.system.System.platformVersion}');
 			#end
