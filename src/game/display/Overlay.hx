@@ -18,7 +18,7 @@ enum GLInfo
 class Overlay extends TextField
 {
 	@:noCompletion private var currentTime:Float;
-	@:noCompletion private var currentMemoryPeak:UInt;
+	@:noCompletion private var currentMemoryPeak:Float;
 	@:noCompletion private var times:Array<Float>;
 
 	public function new(x:Float = 10, y:Float = 10, size_x:Int = 1, size_y:Int = 1, size:Int = 15)
@@ -70,7 +70,7 @@ class Overlay extends TextField
 		else
 			textColor = 0xFFFFFFFF;
 
-		var currentMemory:UInt = System.totalMemory;
+		var currentMemory:Float = System.totalMemory;
 		if (currentMemory > currentMemoryPeak)
 			currentMemoryPeak = currentMemory;
 
@@ -78,7 +78,7 @@ class Overlay extends TextField
 		{
 			var stats:Array<String> = [];
 			stats.push('FPS: ${currentFrames}');
-			stats.push('Memory: ${getMemoryInterval(currentMemory.toFloat())} / ${getMemoryInterval(currentMemoryPeak.toFloat())}');
+			stats.push('Memory: ${getMemoryInterval(currentMemory)} / ${getMemoryInterval(currentMemoryPeak)}');
 			stats.push('GL Renderer: ${getGLInfo(RENDERER)}');
 			stats.push('GL Shading Version: ${getGLInfo(SHADING_LANGUAGE_VERSION)}');
 			#if android
