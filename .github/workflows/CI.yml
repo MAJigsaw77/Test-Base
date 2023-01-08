@@ -44,9 +44,16 @@ jobs:
         with:
           haxe-version: 4.2.5
 
-      - name: Set HAXEPATH
-        run: |
-          echo "HAXEPATH=$HAXE_STD_PATH/.." >> $GITHUB_ENV
+      - name: Restore Existing Cache
+        uses: actions/cache@main
+        with:
+          key: cache-android-build
+          path: |
+            .haxelib/
+            export/android/haxe/
+            export/android/obj/
+          restore-keys: |
+            cache-android-build
 
       - name: Installing Libraries
         run: |
@@ -59,10 +66,6 @@ jobs:
           haxelib --quiet git hxCodec https://github.com/MAJigsaw77/hxCodec.git
           haxelib --quiet git extension-androidtools https://github.com/MAJigsaw77/extension-androidtools.git
           haxelib list
-
-      - name: Enable HXCPP Compile Cache
-        run: |
-          echo "HXCPP_COMPILE_CACHE=~/.hxcpp" >> $GITHUB_ENV
 
       - name: Configure Android
         run: |
@@ -83,3 +86,34 @@ jobs:
           name: androidBuild-${{ matrix.arch }}
           path: export/android/bin/app/build/outputs/apk/debug
           if-no-files-found: error
+
+      - name: Clearing Already Existing Cache
+        uses: actions/github-script@main
+        with:
+          script: |
+            const caches = await github.rest.actions.getActionsCacheList({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            })
+            for (const cache of caches.data.actions_caches) {
+              if (cache.key == "cache-android-build") {
+                console.log('Clearing ' + cache.key + '...')
+                await github.rest.actions.deleteActionsCacheById({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  cache_id: cache.id,
+                })
+                console.log("Cache cleared.")
+              }
+            }
+
+      - name: Uploading New Cache
+        uses: actions/cache@main
+        with:
+          key: cache-android-build
+          path: |
+            .haxelib/
+            export/android/haxe/
+            export/android/obj/
+          restore-keys: |
+            cache-android-build
