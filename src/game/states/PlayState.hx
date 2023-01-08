@@ -17,10 +17,12 @@ class PlayState extends FlxState
 		vlc = new VideoHandler();
 		vlc.finishCallback = function()
 		{
+			#if android
 			Toast.makeText('dispose is done!', Toast.LENGTH_LONG);
+			#end
 		}
 		if (FileSystem.exists(SUtil.getStorageDirectory() + 'assets/videos/stressCutscene.mp4'))
-			vlc.playVideo(SUtil.getStorageDirectory() + 'assets/videos/stressCutscene.mp4');
+			vlc.playVideo(SUtil.getStorageDirectory() + 'assets/videos/stressCutscene.mp4', true);
 
 		super.create();
 	}
